@@ -58,14 +58,14 @@ const Toolbar = props => {
               }
             >
               <Link to="/">
-                <img
+                {/* <img
                   src={Newlogo}
                   alt="logo"
                   className={
                     state.collapsed ? styles.logoCollapsed : styles.logo
                   }
                   data-testid="logo"
-                />
+                /> */}
               </Link>
               <Icon
                 className="trigger"

@@ -27,8 +27,15 @@ export const AddPrescription = props => {
     };
 
     props.postPrescription(newPres);
+    props.toggleMode();
   };
-  const { getFieldDecorator } = props.form;
+  const {
+    getFieldDecorator,
+    getFieldsError,
+    validateFields,
+    isFieldTouched,
+    getFieldError,
+  } = props.form;
   return (
     <Form onSubmit={handleSubmit} className="login-form">
       <Form.Item>
