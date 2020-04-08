@@ -1,7 +1,36 @@
-.login-form {
+
+/* .login-form {
   width: 100%;
   max-width: 330px;
   padding: 15px;
   margin: auto;
   height: 100%;
+} */
+.login-form {
+  max-width: 400px;
+  margin: 0 auto;
 }
+.login-form-forgot {
+  float: right;
+}
+.login-form-button {
+  width: 100%;
+}
+.ant-form-explain {
+    color: red;
+}
+.forgot-password h1{
+    margin: 0 auto;
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2rem;
+}
+
+/* Card style */
+/* .site-card-wrapper {
+  background: #ececec;
+  padding: 30px;
+}
+  [data-theme="dark"] .site-card-wrapper {
+    background: #303030;
+  } */

@@ -1,102 +1,129 @@
 import React, { useState } from "react";
+import { Form, Icon, Input, Button, DatePicker } from "antd";
+import "./form.css";
 import { connect } from "react-redux";
 import { postPrescription } from "../state/actions/drugAction";
-import { Button, Form, FormGroup, Label, Input, Badge } from "reactstrap";
-import "./form.css";
 
-function AddPrescription(props) {
-  console.log(props);
-  
-  const [formDetails, setFormDetails] = useState({
+export const AddPrescription = props => {
+  const [formValues, setFormValues] = useState({
     drug: "",
     unit: "",
-    start_date: "",
-    end_date: ""
+    start_Date: "",
+    end_Date: ""
   });
   const handleChange = e => {
-    setFormDetails({
-      ...formDetails,
+    setFormValues({
+      ...formValues,
       [e.target.name]: e.target.value
     });
   };
-
   const handleSubmit = e => {
     e.preventDefault();
     const newPres = {
-      drug: formDetails.drug,
-      unit: formDetails.unit,
-      start_date: formDetails.start_date,
-      end_date: formDetails.end_date
+      drug: formValues.drug,
+      unit: formValues.unit,
+      start_Date: formValues.start_Date,
+      end_Date: formValues.end_Date
     };
 
     props.postPrescription(newPres);
   };
+  const { getFieldDecorator } = props.form;
   return (
-    <div>
-      <Form className="login-form" onSubmit={handleSubmit}>
-        <h1>
-          <span className="font-weight-bold">New prescription</span>
-          {/* <Badge color="primary"> New prescription</Badge> */}
-        </h1>
-        <FormGroup>
-          <Label htmlFor="drug">Drug</Label>
+    <Form onSubmit={handleSubmit} className="login-form">
+      <Form.Item>
+        {getFieldDecorator("drug", {
+          //rules are for the form validation
+          rules: [
+            { required: true, message: "Name of drug" },
+            {
+              type: "string",
+              message: "Enter a drug name"
+            }
+          ]
+        })(
           <Input
-            type="text"
-            placeholder="Name of drug"
             name="drug"
+            setFieldsValue={formValues.drug}
             onChange={handleChange}
-            value={formDetails.drug}
+            //form icon in the email field, change type for different icons, see antdesign docs
+            prefix={<Icon type="mail" style={{ color: "rgba(0,0,0,.25)" }} />}
+            placeholder="Drug"
           />
-        </FormGroup>
-
-        <FormGroup>
-          <Label htmlFor="unit">Unit</Label>
+        )}
+      </Form.Item>
+      <Form.Item>
+        {getFieldDecorator("unit", {
+          //rules are for the form validation
+          rules: [
+            { required: true, message: "How many table or teaspoons?" },
+            {
+              type: "string",
+              message: "Enter Drug unit"
+            }
+          ]
+        })(
           <Input
-            type="text"
-            id="formGroupExampleInput"
-            placeholder="Enter the unit"
             name="unit"
+            setFieldsValue={formValues.unit}
             onChange={handleChange}
-            value={formDetails.unit}
+            //form icon in the email field, change type for different icons, see antdesign docs
+            prefix={<Icon type="mail" style={{ color: "rgba(0,0,0,.25)" }} />}
+            placeholder="Unit"
           />
-        </FormGroup>
-        <FormGroup>
-          <Label htmlFor="formGroupExampleInput2">Start Date</Label>
-          <input
-            type="date"
-            className="form-control"
-            placeholder="age"
-            name="start_date"
-            onChange={handleChange}
-            value={formDetails.start_date}
-          />
-        </FormGroup>
-        <FormGroup>
-          <Label htmlFor="email">End Date</Label>
-          <Input
-            type="date"
-            placeholder="Enter email"
-            name="end_date"
-            onChange={handleChange}
-            value={formDetails.end_date}
-          />
-        </FormGroup>
+        )}
+      </Form.Item>
+      <Form.Item
+        name="start_Date"
+        placeholder="Start"
+        onChange={handleChange}
+        setFieldsValue={formValues.start_Date}
+      >
+        {getFieldDecorator("start_Date", {
+          //rules are for the form validation
+          rules: [
+            { required: true, message: "When will this medication start?" },
+            {
+              type: "date",
+              message: "Date is not valid"
+            }
+          ]
+        })(<DatePicker />)}
+      </Form.Item>
+      <Form.Item
+        name="end_Date"
+        placeholder="End"
+        onChange={handleChange}
+        setFieldsValue={formValues.end_Date}
+      >
+        {getFieldDecorator("end_Date", {
+          //rules are for the form validation
+          rules: [
+            { required: true, message: "Please enter an end date" },
+            {
+              type: "date",
+              message: "Invalid email"
+            }
+          ]
+        })(<DatePicker />)}
+      </Form.Item>
 
-        <Button
-          type="submit"
-          className="btn-lg btn-primary btn-block"
-          color="primary"
-        >
-          Add
+      <Form.Item>
+        <Button type="primary" htmlType="submit" className="login-form-button">
+          Add Prescription
         </Button>
-      </Form>
-    </div>
+      </Form.Item>
+    </Form>
   );
-}
+};
 
 const mapStateToProps = state => ({
   prescription: state.prescription.data,
   newPres: state.prescription.data
 });
-
-export default connect(mapStateToProps, { postPrescription })(AddPrescription);
+export const WrappedNormalLoginForm = Form.create({ name: "normal_login" })(
+  AddPrescription
+);
+export default connect(mapStateToProps, { postPrescription })(
+  WrappedNormalLoginForm
+);

@@ -11,6 +11,7 @@ export const getPrescription = () => dispatch => {
   axiosWithAuth()
     .get(`/prescription`)
     .then(res => {
+
       dispatch({
         type: GET_PRESCRIPTION,
         payload: res.data.prescription
@@ -38,6 +39,8 @@ export const postPrescription = newPres => dispatch => {
   axiosWithAuth()
     .post(`/prescription/add`, newPres)
     .then(pres => {
+      console.log(pres);
+      
       dispatch({
         type: CREATE_PRESCRIPTION,
         payload: pres
