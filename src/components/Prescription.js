@@ -9,7 +9,8 @@ import logo from "../images/mediool.png";
 import { PlusOutlined, EyeOutlined, DeleteOutlined } from "@ant-design/icons";
 import HeaderSearchBar from "./Toolbar/HeaderSearchBar";
 import Toolbar from "./Toolbar/Toolbar";
-import { AddPrescription } from "./AddPrescription";
+import AddPrescription from "./AddPrescription";
+import AddFormula from "./AddFormula";
 
 // import "./form.css";
 
@@ -18,11 +19,18 @@ const { Meta } = Card;
 function Prescription(props) {
   console.log(props);
   const [visible, setVisible] = useState(false);
+  const [show, setShow] = useState(false);
 
   const toggleModal = () => {
-    setVisible(true);
+    setVisible(!visible);
+  };
+  const toggleFormula = () => {
+    setShow(!show);
   };
 
+  function handleEnd() {
+    setShow(false);
+  }
   const handleOk = () => {
     setVisible(false);
   };
@@ -31,12 +39,13 @@ function Prescription(props) {
     setVisible(false);
   };
 
-  const handleDelete = (_id) => {
-    props.deletePrescription(_id);
-  };
   useEffect(() => {
     props.getPrescription();
   }, []);
+
+  const handleDelete = (_id) => {
+    props.deletePrescription(_id);
+  };
 
   return (
     <div>
@@ -48,8 +57,10 @@ function Prescription(props) {
           visible={visible}
           onOk={handleOk}
           onCancel={handleCancel}
+          destroyOnClose={true}
+          footer={null}
         >
-          <AddPrescription toggleModal={toggleModal}/>
+          <AddPrescription toggleModal={toggleModal} />
         </Modal>
         <div>
           {/* <Switch checked={!loading} onChange={onChange} /> */}
@@ -57,7 +68,7 @@ function Prescription(props) {
             <Card
               style={{ width: 300, marginTop: 16 }}
               actions={[
-                <PlusOutlined key="plus" />,
+                <PlusOutlined key="plus" onClick={toggleFormula} />,
                 <EyeOutlined key="eye" />,
                 <DeleteOutlined
                   key="delete"
@@ -72,6 +83,17 @@ function Prescription(props) {
               />
             </Card>
           ))}
+        </div>
+        <div>
+          <Modal
+            title="Have a new formula?"
+            visible={show}
+            footer={null}
+            destroyOnClose={true}
+            onCancel={handleEnd}
+          >
+            <AddFormula toggleFormula={toggleFormula} />
+          </Modal>
         </div>
       </Toolbar>
     </div>

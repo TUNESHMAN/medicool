@@ -1,37 +1,42 @@
 import React, { useState } from "react";
-import { Form, Icon, Input, Button } from "antd";
+import { Form, Icon, Input, Button, InputNumber } from "antd";
 import "./form.css";
 import axios from "axios";
 
-const RegisterForm = props => {
-  const [formValues, setFormValues] = useState({
-    firstName: "",
-    lastName: "",
-    age: "",
-    email: "",
-    password: ""
-  });
-  const handleChange = e => {
-    setFormValues({
-      ...formValues,
-      [e.target.name]: e.target.value
-    });
+const RegisterForm = (props) => {
+  const [formAge, setFormAge] = useState("");
+
+  const handleChange = (value) => {
+    setFormAge(value);
   };
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-  // make a post request to register endpoint
-    axios
-      .post(
-        `https://drug-prescription-app.herokuapp.com/api/v1/users/register`,
-        formValues
-      )
-      .then(res => {
-        console.log(res);
-        props.history.push(`/login`);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+     // make a post request to register endpoint
+    props.form.validateFieldsAndScroll((error, values) => {
+      const payload = {
+        firstName: values.firstName,
+        lastName: values.lastName,
+        age: formAge,
+        email: values.email,
+        password: values.password,
+      };
+
+      if (!error) {
+        console.log(payload);
+        axios
+          .post(
+            `https://drug-prescription-app.herokuapp.com/api/v1/users/register`,
+            payload
+          )
+          .then((res) => {
+            console.log(res);
+            props.history.push(`/login`);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    });
   };
   const { getFieldDecorator } = props.form;
   return (
@@ -43,14 +48,12 @@ const RegisterForm = props => {
             { required: true, message: "Please input First name" },
             {
               type: "string",
-              message: "Enter a valid name"
-            }
-          ]
+              message: "Enter a valid name",
+            },
+          ],
         })(
           <Input
             name="firstName"
-            setFieldsValue={formValues.firstName}
-            onChange={handleChange}
             //form icon in the email field, change type for different icons, see antdesign docs
             prefix={<Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />}
             placeholder="First Name"
@@ -64,14 +67,12 @@ const RegisterForm = props => {
             { required: true, message: "Please enter your last name" },
             {
               type: "string",
-              message: "Enter a valid name"
-            }
-          ]
+              message: "Enter a valid name",
+            },
+          ],
         })(
           <Input
             name="lastName"
-            setFieldsValue={formValues.lastName}
-            onChange={handleChange}
             //form icon in the email field, change type for different icons, see antdesign docs
             prefix={<Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />}
             placeholder="Last Name"
@@ -84,14 +85,16 @@ const RegisterForm = props => {
           rules: [
             { required: true, message: "How old are you?" },
             {
-              type: "string",
-              message: "Age is not valid"
-            }
-          ]
+              type: "number",
+              message: "Age is not valid",
+            },
+          ],
         })(
-          <Input
+          <InputNumber
             name="age"
-            setFieldsValue={formValues.age}
+            min={1}
+            max={100}
+            setFieldsValue={formAge}
             onChange={handleChange}
             //form icon in the email field, change type for different icons, see antdesign docs
             prefix={<Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />}
@@ -106,14 +109,12 @@ const RegisterForm = props => {
             { required: true, message: "Please input a email!" },
             {
               type: "email",
-              message: "Invalid email"
-            }
-          ]
+              message: "Invalid email",
+            },
+          ],
         })(
           <Input
             name="email"
-            setFieldsValue={formValues.email}
-            onChange={handleChange}
             //form icon in the email field, change type for different icons, see antdesign docs
             prefix={<Icon type="mail" style={{ color: "rgba(0,0,0,.25)" }} />}
             placeholder="Email"
@@ -127,15 +128,13 @@ const RegisterForm = props => {
             { required: true, message: "Please input a password!" },
             {
               type: "string",
-              message: "Invalid password"
-            }
-          ]
+              message: "Invalid password",
+            },
+          ],
         })(
           <Input
             name="password"
             type="password"
-            setFieldsValue={formValues.password}
-            onChange={handleChange}
             //form icon in the email field, change type for different icons, see antdesign docs
             prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
             placeholder="Password"

@@ -4,30 +4,30 @@ import "./form.css";
 import { connect } from "react-redux";
 import { postPrescription } from "../state/actions/drugAction";
 
-export const AddPrescription = props => {
+export const AddPrescription = (props) => {
   const [formValues, setFormValues] = useState({
     drug: "",
     unit: "",
     start_Date: "",
-    end_Date: ""
+    end_Date: "",
   });
-  const handleChange = e => {
+  const handleChange = (e) => {
     setFormValues({
       ...formValues,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     const newPres = {
       drug: formValues.drug,
       unit: formValues.unit,
       start_Date: formValues.start_Date,
-      end_Date: formValues.end_Date
+      end_Date: formValues.end_Date,
     };
 
     props.postPrescription(newPres);
-    props.toggleMode();
+    props.toggleModal();
   };
   const {
     getFieldDecorator,
@@ -36,6 +36,7 @@ export const AddPrescription = props => {
     isFieldTouched,
     getFieldError,
   } = props.form;
+
   return (
     <Form onSubmit={handleSubmit} className="login-form">
       <Form.Item>
@@ -45,9 +46,9 @@ export const AddPrescription = props => {
             { required: true, message: "Name of drug" },
             {
               type: "string",
-              message: "Enter a drug name"
-            }
-          ]
+              message: "Enter a drug name",
+            },
+          ],
         })(
           <Input
             name="drug"
@@ -66,9 +67,9 @@ export const AddPrescription = props => {
             { required: true, message: "How many table or teaspoons?" },
             {
               type: "string",
-              message: "Enter Drug unit"
-            }
-          ]
+              message: "Enter Drug unit",
+            },
+          ],
         })(
           <Input
             name="unit"
@@ -92,9 +93,9 @@ export const AddPrescription = props => {
             { required: true, message: "When will this medication start?" },
             {
               type: "date",
-              message: "Date is not valid"
-            }
-          ]
+              message: "Date is not valid",
+            },
+          ],
         })(<DatePicker />)}
       </Form.Item>
       <Form.Item
@@ -109,9 +110,9 @@ export const AddPrescription = props => {
             { required: true, message: "Please enter an end date" },
             {
               type: "date",
-              message: "Invalid email"
-            }
-          ]
+              message: "Invalid email",
+            },
+          ],
         })(<DatePicker />)}
       </Form.Item>
 
@@ -124,11 +125,11 @@ export const AddPrescription = props => {
   );
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   prescription: state.prescription.data,
-  newPres: state.prescription.data
+  newPres: state.prescription.data,
 });
-export const WrappedNormalLoginForm = Form.create({ name: "normal_login" })(
+const WrappedNormalLoginForm = Form.create({ name: "normal_login" })(
   AddPrescription
 );
 export default connect(mapStateToProps, { postPrescription })(

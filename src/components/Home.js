@@ -3,10 +3,10 @@ import Navbar from "./Navbar";
 import Footer from "./Footer";
 import background from "../images/background.jpg";
 import capsule from "../images/capsule.jpg";
-import syrup from "../images/syrup.jpg"
-import antibiotics from "../images/antibiotics.jpg"
-import antiseptics from "../images/antiseptics.jpg"
-import reminder from "../images/reminder.jpg"
+import syrup from "../images/syrup.jpg";
+import antibiotics from "../images/antibiotics.jpg";
+import antiseptics from "../images/antiseptics.jpg";
+import reminder from "../images/reminder.jpg";
 function Home() {
   return (
     <div>
@@ -15,7 +15,7 @@ function Home() {
       <div
         class="background"
         style={{
-          backgroundImage: `url(${background})`
+          backgroundImage: `url(${background})`,
         }}
       ></div>
       <div class="header-text">
@@ -75,16 +75,12 @@ function Home() {
 
       <section class="third-section">
         <div class="about-section">
-          <img
-            class="about-section2"
-            src={reminder}
-            alt=""
-          />
+          <img class="about-section2" src={reminder} alt="" />
         </div>
         <div class="right-section">
           <h2>BE REMINDED OF YOUR MEDICAL PLAN</h2>
           <p>
-            MineChore is a good way to teach your kids about savings. Work done
+            Medicool is a good way to teach your kids about savings. Work done
             equals money earned. With MineChore, it's easy to get your kids
             excited about chores with our "gamified" approach to household chore
             tracking and management.
@@ -97,11 +93,7 @@ function Home() {
 
       <div class="list-items">
         <div class="tools">
-          <img
-            class="profile-img"
-            src={antibiotics}
-            alt="Chore"
-          />
+          <img class="profile-img" src={antibiotics} alt="Chore" />
           <p class="txt">Antibiotics</p>
           <p class="price">Points: 5</p>
         </div>
@@ -115,7 +107,7 @@ function Home() {
           <p class="txt">Mowing</p>
           <p class="price">Points: 10</p>
         </div> */}
-{/* 
+        {/* 
         <div class="tools">
           <img
             class="profile-img"
@@ -138,11 +130,7 @@ function Home() {
 
         <div class="list-items2">
           <div class="tools">
-            <img
-              class="profile-img"
-              src={syrup}
-              alt="Chore"
-            />
+            <img class="profile-img" src={syrup} alt="Chore" />
             <p class="txt">Syrup</p>
             <p class="price">Points: 10</p>
           </div>
@@ -154,11 +142,7 @@ function Home() {
           </div>
 
           <div class="tools">
-            <img
-              class="profile-img"
-              src={antiseptics}
-              alt="Chore"
-            />
+            <img class="profile-img" src={antiseptics} alt="Chore" />
             <p class="txt">Antiseptics</p>
             <p class="price">Points: 7</p>
           </div>
