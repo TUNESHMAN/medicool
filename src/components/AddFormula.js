@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import "antd/dist/antd.css";
 import { Form, Icon, Input, Button, InputNumber } from "antd";
 import "./form.css";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { addFormula } from "../state/actions/drugAction";
 import axios from "axios";
 
 const Addformula = (props) => {
-  console.log(props);
+  const prescription_id = props.medId;
 
   const [dose, setDose] = useState("");
   const [times, setTimes] = useState("");
@@ -20,22 +20,31 @@ const Addformula = (props) => {
     setTimes(value);
   };
   const handleSubmit = (e) => {
+    debugger
     e.preventDefault();
-    props.toggleFormula();
+    props.toggleFormula(prescription_id);
     props.form.validateFieldsAndScroll((values, error) => {
       const formulaPayload = {
+        prescription_id: prescription_id,
         frequency: values.frequency,
         dose: dose,
         number_of_times: times,
         duration: values.duration,
         before_after_meal: values.before_after_meal,
       };
+
       if (!error) {
+        debugger
+        props.addFormula(formulaPayload);
         console.log(formulaPayload);
       }
+      else{
+        console.log(error);
+        
+      }
     });
-    
   };
+
   const { getFieldDecorator } = props.form;
   return (
     <Form onSubmit={handleSubmit} className="login-form">

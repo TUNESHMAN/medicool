@@ -60,14 +60,14 @@ export const deletePrescription = (_id) => (dispatch) => {
     });
 };
 
-export const addFormula = (newFormula) => (dispatch) => {
+export const addFormula = (formulaPayload) => (dispatch) => {
   axiosWithAuth()
-    .post(`/formula/add`, newFormula)
+    .post(`/formula/add`, formulaPayload)
     .then((res) => {
       console.log(res.data, `Added formula`);
       dispatch({
         type: "ADD_FORMULA",
-        payload: res.data.prescription._id,
+        payload: res.data.prescription,
       });
     })
     .catch((err) => {

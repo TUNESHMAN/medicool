@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Form, Icon, Input, Button, DatePicker } from "antd";
 import "./form.css";
 import { connect } from "react-redux";
-import { postPrescription } from "../state/actions/drugAction";
+import { postPrescription, getPrescription } from "../state/actions/drugAction";
 
 export const AddPrescription = (props) => {
   const [formValues, setFormValues] = useState({
@@ -28,6 +28,7 @@ export const AddPrescription = (props) => {
 
     props.postPrescription(newPres);
     props.toggleModal();
+    props.getPrescription()
   };
   const {
     getFieldDecorator,
@@ -132,6 +133,6 @@ const mapStateToProps = (state) => ({
 const WrappedNormalLoginForm = Form.create({ name: "normal_login" })(
   AddPrescription
 );
-export default connect(mapStateToProps, { postPrescription })(
+export default connect(mapStateToProps, { postPrescription, getPrescription })(
   WrappedNormalLoginForm
 );

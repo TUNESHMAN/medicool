@@ -20,12 +20,16 @@ function Prescription(props) {
   console.log(props);
   const [visible, setVisible] = useState(false);
   const [show, setShow] = useState(false);
+  const [medId, setMedId] = useState("");
 
   const toggleModal = () => {
     setVisible(!visible);
+  
   };
-  const toggleFormula = () => {
+  const toggleFormula = (id) => {
     setShow(!show);
+    setMedId(id)
+    console.log(medId)
   };
 
   function handleEnd() {
@@ -45,6 +49,7 @@ function Prescription(props) {
 
   const handleDelete = (_id) => {
     props.deletePrescription(_id);
+    props.getPrescription();
   };
 
   return (
@@ -68,7 +73,8 @@ function Prescription(props) {
             <Card
               style={{ width: 300, marginTop: 16 }}
               actions={[
-                <PlusOutlined key="plus" onClick={toggleFormula} />,
+                <PlusOutlined key="plus" onClick={()=>toggleFormula(med._id)} />,
+                
                 <EyeOutlined key="eye" />,
                 <DeleteOutlined
                   key="delete"
@@ -92,7 +98,7 @@ function Prescription(props) {
             destroyOnClose={true}
             onCancel={handleEnd}
           >
-            <AddFormula toggleFormula={toggleFormula} />
+            <AddFormula toggleFormula={toggleFormula} medId={medId} />
           </Modal>
         </div>
       </Toolbar>
