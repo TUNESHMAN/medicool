@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "antd/dist/antd.css";
-import { Form, Icon, Input, Button } from "antd";
+import { Form, Icon, Input, Button, message } from "antd";
 import "./form.css";
 import axios from "axios";
 
@@ -13,19 +13,19 @@ const LoginForm = (props) => {
         password: values.password,
       };
       if (!error) {
-        console.log(loginPayload);
+        message.loading(`You Are Logging IN...`, 2.5);
         axios
           .post(
             "https://drug-prescription-app.herokuapp.com/api/v1/users/login",
             loginPayload
           )
           .then((res) => {
-            console.log(res);
+            message.success(`Now You Are Logged IN!`, 1.0)
             localStorage.setItem("token", res.data.user.token);
             props.history.push("/prescription");
           })
           .catch((err) => {
-            console.log(err);
+            message.error(`Unsuccessful attempt, Please create an account`, 1.0)
           });
       }
     });
