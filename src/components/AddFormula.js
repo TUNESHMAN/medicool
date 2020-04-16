@@ -2,49 +2,41 @@ import React, { useState } from "react";
 import "antd/dist/antd.css";
 import { Form, Icon, Input, Button, InputNumber } from "antd";
 import "./form.css";
-import { connect, useSelector } from "react-redux";
+import { connect } from "react-redux";
 import { addFormula } from "../state/actions/drugAction";
 import axios from "axios";
-
 const Addformula = (props) => {
   const prescription_id = props.medId;
-
+  // console.log("moved", prescription_id);
+  // console.log(props);
   const [dose, setDose] = useState("");
   const [times, setTimes] = useState("");
-
   const handleDose = (value) => {
     setDose(value);
   };
-
   const handleTimes = (value) => {
     setTimes(value);
   };
   const handleSubmit = (e) => {
-    debugger
     e.preventDefault();
-    props.toggleFormula(prescription_id);
-    props.form.validateFieldsAndScroll((values, error) => {
+    props.form.validateFieldsAndScroll((err, values) => {
       const formulaPayload = {
-        prescription_id: prescription_id,
+        // prescription_id: prescription_id,
         frequency: values.frequency,
-        dose: dose,
+        dose: dose.toString(),
         number_of_times: times,
         duration: values.duration,
-        before_after_meal: values.before_after_meal,
+        before_after_meal: values.before,
       };
-
-      if (!error) {
-        debugger
-        props.addFormula(formulaPayload);
-        console.log(formulaPayload);
-      }
-      else{
-        console.log(error);
-        
+      if (!err) {
+        props.addFormula(formulaPayload,prescription_id);
+        console.log("payload >> ", formulaPayload);
+        props.toggleFormula(prescription_id);
+      } else {
+        console.log("error", err);
       }
     });
   };
-
   const { getFieldDecorator } = props.form;
   return (
     <Form onSubmit={handleSubmit} className="login-form">
@@ -52,7 +44,7 @@ const Addformula = (props) => {
         {getFieldDecorator("frequency", {
           //rules are for the form validation
           rules: [
-            { required: true, message: "Please input a email!" },
+            { required: true, message: "Please input an email!" },
             {
               type: "string",
               message: "How often will you use this drug?",
@@ -68,42 +60,45 @@ const Addformula = (props) => {
         )}
       </Form.Item>
       <Form.Item>
-        <InputNumber
-          name="dose"
-          min={1}
-          max={12}
-          setFieldsValue={dose}
-          onChange={handleDose}
-          //form icon in the email field, change type for different icons, see antdesign docs
-          prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
-          placeholder="dose"
-        />
-      </Form.Item>
-
-      <Form.Item>
-        <InputNumber
-          name="Times"
-          min={1}
-          max={12}
-          // type="password"
-          setFieldsValue={times}
-          onChange={handleTimes}
-          //form icon in the email field, change type for different icons, see antdesign docs
-          prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
-          placeholder="Number of times daily"
-        />
+        {getFieldDecorator(
+          "dose",
+          {}
+        )(
+          <InputNumber
+            name="dose"
+            min={1}
+            max={12}
+            setFieldsValue={dose}
+            onChange={handleDose}
+            //form icon in the email field, change type for different icons, see antdesign docs
+            prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
+            placeholder="dose"
+          />
+        )}
       </Form.Item>
       <Form.Item>
-        {getFieldDecorator("duration", {
-          //rules are for the form validation
-          rules: [
-            { required: true, message: "Duration" },
-            {
-              type: "string",
-              message: "For how long?",
-            },
-          ],
-        })(
+        {getFieldDecorator(
+          "times",
+          {}
+        )(
+          <InputNumber
+            name="Times"
+            min={1}
+            max={12}
+            // type="password"
+            setFieldsValue={times}
+            onChange={handleTimes}
+            //form icon in the email field, change type for different icons, see antdesign docs
+            prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
+            placeholder="Number of times daily"
+          />
+        )}
+      </Form.Item>
+      <Form.Item>
+        {getFieldDecorator(
+          "duration",
+          {}
+        )(
           <Input
             name="duration"
             type="string"
@@ -113,9 +108,8 @@ const Addformula = (props) => {
           />
         )}
       </Form.Item>
-
       <Form.Item>
-        {getFieldDecorator("Before or after meal ", {
+        {getFieldDecorator("before", {
           //rules are for the form validation
           rules: [
             { required: true, message: "Before or after meal" },
@@ -141,7 +135,6 @@ const Addformula = (props) => {
     </Form>
   );
 };
-
 const mapStateToProps = (state) => ({
   formula: state.prescription.data,
   newFormula: state.prescription.data,

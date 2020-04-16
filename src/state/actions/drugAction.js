@@ -5,6 +5,8 @@ import {
   INPUT_CHANGE,
   GET_PRESCRIPTION,
   GET_PRESCRIPTION_BY_ID,
+  ADD_FORMULA,
+  GET_FORMULA,
 } from "../types/types";
 import { axiosWithAuth } from "../../utils/axiosWithAuth";
 export const getPrescription = () => (dispatch) => {
@@ -15,7 +17,7 @@ export const getPrescription = () => (dispatch) => {
         type: GET_PRESCRIPTION,
         payload: res.data.prescription,
       });
-      console.log(res);
+      // console.log(res);
     })
     .catch((err) => {
       console.log(err);
@@ -60,11 +62,11 @@ export const deletePrescription = (_id) => (dispatch) => {
     });
 };
 
-export const addFormula = (formulaPayload) => (dispatch) => {
+export const addFormula = (formulaPayload, id) => (dispatch) => {
   axiosWithAuth()
-    .post(`/formula/add`, formulaPayload)
+    .post(`/formula/add/${id}`, formulaPayload)
     .then((res) => {
-      console.log(res.data, `Added formula`);
+      console.log(res, `Added formula`);
       dispatch({
         type: "ADD_FORMULA",
         payload: res.data.prescription,
@@ -88,4 +90,16 @@ export const getPrescriptionById = (_id) => (dispatch) => {
     .catch((err) => {
       console.log(err);
     });
+};
+
+export const getFormula = (id) => (dispatch) => {
+  axiosWithAuth()
+  .get(`/formula/${id}`).then((res)=>{
+    console.log(res.data);
+    dispatch({
+      type: GET_FORMULA,
+      payload: res.data
+    })
+    
+  });
 };

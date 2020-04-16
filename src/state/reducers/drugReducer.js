@@ -4,19 +4,12 @@ import {
   DELETE_PRESCRIPTION,
   INPUT_CHANGE,
   GET_PRESCRIPTION,
-  ADD_FORMULA,
   GET_PRESCRIPTION_BY_ID,
 } from "../types/types";
 import { axiosWithAuth } from "../../utils/axiosWithAuth";
 const initialState = {
   drugs: [],
   data: {},
-  prescriptionForm: {
-    drug: "",
-    unit: "",
-    start_date: "",
-    end_date: "",
-  },
 };
 
 const drugReducer = (state = initialState, action) => {
@@ -33,7 +26,7 @@ const drugReducer = (state = initialState, action) => {
         },
       };
     case GET_PRESCRIPTION:
-      console.log(`reducer`);
+      // console.log(`reducer`);
       return {
         ...state,
         drugs: action.payload,
@@ -42,11 +35,6 @@ const drugReducer = (state = initialState, action) => {
       return {
         ...state,
         data: action.payload,
-      };
-    case ADD_FORMULA:
-      return {
-        ...state,
-        formula: [action.payload, ...state.formula],
       };
     default:
       return state;

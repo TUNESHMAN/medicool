@@ -9,9 +9,9 @@ import { AddPrescription } from "../AddPrescription";
 
 const { Sider, Content } = Layout;
 
-const Toolbar = props => {
+const Toolbar = (props) => {
   const [state, setState] = useState({
-    collapsed: false
+    collapsed: false,
   });
 
   const token = localStorage.getItem("token");
@@ -20,13 +20,10 @@ const Toolbar = props => {
   //     const decoded = decode(token);
   //     var userName = decoded.name;
   //   }
-  
-
- 
 
   const toggle = () => {
     setState({
-      collapsed: !state.collapsed
+      collapsed: !state.collapsed,
     });
   };
 
@@ -111,15 +108,20 @@ const Toolbar = props => {
                   <span>Prescriptions</span>
                 </NavLink>
               </Menu.Item>
-              <Menu.Item key="3" className={styles.menuItem}>
-                {/* <NavLink
+              <Menu.Item key></Menu.Item>
+              {/* <Menu.Item key="3" className={styles.menuItem}>
+                <Button onClick={props.toggleModal}>Add Prescription</Button>
+              </Menu.Item> */}
+
+              {/* <Menu.Item key="3" className={styles.menuItem}>
+                <NavLink
                   to="/addprescription"
                   activeClassName={styles.navItemSeleted}
                   className={styles.navItem}
-                > */}
+                >
                   <Icon type="plus" />
-                {/* </NavLink> */}
-              </Menu.Item>
+                </NavLink>
+              </Menu.Item> */}
             </Menu>
             <footer
               className={styles.footer}

@@ -8,6 +8,7 @@ import Prescription from "./components/Prescription";
 import AddPrescription from "./components/AddPrescription";
 import AddFormula from "./components/AddFormula";
 import PrivateRoute from "./components/PrivateRoute";
+import Formula from "./components/Formula";
 function App() {
   return (
     <div className="App">
@@ -15,6 +16,7 @@ function App() {
       <Route exact path="/login" component={LoginForm} />
       <Route exact path="/register" component={RegisterForm} />
       <PrivateRoute exact path="/prescription" component={Prescription} />
+      <PrivateRoute exact path="/formula" component={Formula} />
       <PrivateRoute exact path="/addprescription" component={AddPrescription} />
       <PrivateRoute exact path="/addformula" component={AddFormula} />
     </div>

@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import {
   getPrescription,
   deletePrescription,
+  getFormula,
 } from "../state/actions/drugAction";
 import { Card, Avatar, Button, Modal } from "antd";
 import logo from "../images/mediool.png";
@@ -18,19 +19,47 @@ const { Meta } = Card;
 
 function Prescription(props) {
   console.log(props);
+  console.log(props.prescription);
+
+  console.log(props.formula);
+
   const [visible, setVisible] = useState(false);
   const [show, setShow] = useState(false);
   const [medId, setMedId] = useState("");
 
   const toggleModal = () => {
     setVisible(!visible);
-  
   };
   const toggleFormula = (id) => {
     setShow(!show);
-    setMedId(id)
-    console.log(medId)
+    setMedId(id);
+    console.log(medId);
   };
+
+  function handleView(_id) {
+    props.getFormula(_id);
+    let secondsToGo = 25;
+    let frequency = props.formula.formula.frequency;
+    let dose = props.formula.formula.dose;
+    let when = props.formula.formula.before_after_meal;
+    let duration = props.formula.formula.duration;
+    let times = props.formula.formula.number_of_times;
+
+    const modal = Modal.info({
+      title: props.formula.formula.frequency,
+      content: `Hi, you will take ${dose},of this drug ${when}  ${frequency} `,
+    });
+    const timer = setInterval(() => {
+      secondsToGo -= 1;
+      modal.update({
+        content: `Hi, you will take ${dose},of this drug ${when}  ${frequency}`,
+      });
+    }, 1000);
+    setTimeout(() => {
+      clearInterval(timer);
+      modal.destroy();
+    }, secondsToGo * 1000);
+  }
 
   function handleEnd() {
     setShow(false);
@@ -55,7 +84,7 @@ function Prescription(props) {
   return (
     <div>
       <Toolbar>
-        <HeaderSearchBar />
+        {/* <HeaderSearchBar /> */}
         <Button onClick={toggleModal}>Add Prescription</Button>
         <Modal
           title="Add a prescription"
@@ -73,9 +102,12 @@ function Prescription(props) {
             <Card
               style={{ width: 300, marginTop: 16 }}
               actions={[
-                <PlusOutlined key="plus" onClick={()=>toggleFormula(med._id)} />,
-                
-                <EyeOutlined key="eye" />,
+                <PlusOutlined
+                  key="plus"
+                  onClick={() => toggleFormula(med._id)}
+                />,
+
+                <EyeOutlined key="eye" onClick={() => handleView(med._id)} />,
                 <DeleteOutlined
                   key="delete"
                   onClick={() => handleDelete(med._id)}
@@ -108,9 +140,11 @@ function Prescription(props) {
 
 const mapStateToProps = (state) => ({
   prescription: state.prescription.drugs,
+  formula: state.formula,
 });
 
 export default connect(mapStateToProps, {
   getPrescription,
   deletePrescription,
+  getFormula,
 })(Prescription);
