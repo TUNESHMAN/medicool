@@ -45,20 +45,37 @@ function Prescription(props) {
     let duration = props.formula.formula.duration;
     let times = props.formula.formula.number_of_times;
 
-    const modal = Modal.info({
-      title: props.formula.formula.frequency,
-      content: `Hi, you will take ${dose},of this drug ${when}  ${frequency} `,
-    });
-    const timer = setInterval(() => {
-      secondsToGo -= 1;
-      modal.update({
-        content: `Hi, you will take ${dose},of this drug ${when}  ${frequency}`,
+    if (!props.formula.formula) {
+      const modal = Modal.error({
+        // title: props.formula.formula.frequency,
+        content: `Hi, you do not have any formula `,
       });
-    }, 1000);
-    setTimeout(() => {
-      clearInterval(timer);
-      modal.destroy();
-    }, secondsToGo * 1000);
+      const timer = setInterval(() => {
+        secondsToGo -= 1;
+        modal.update({
+          content: `Hi, you do not have any formula`,
+        });
+      }, 1000);
+      setTimeout(() => {
+        clearInterval(timer);
+        modal.destroy();
+      }, secondsToGo * 1000);
+    } else {
+      const modal = Modal.info({
+        title: props.formula.formula.frequency,
+        content: `Hi, you will take ${dose},of this drug ${when}  ${frequency} `,
+      });
+      const timer = setInterval(() => {
+        secondsToGo -= 1;
+        modal.update({
+          content: `Hi, you will take ${dose},of this drug ${when}  ${frequency}`,
+        });
+      }, 1000);
+      setTimeout(() => {
+        clearInterval(timer);
+        modal.destroy();
+      }, secondsToGo * 1000);
+    }
   }
 
   function handleEnd() {

@@ -32,9 +32,9 @@ function Home() {
         </p>
 
         <div id="buttons">
-          <Link className="start-btn transparent" to="/login">
+          <a className="start-btn transparent" href="/login">
             SIGN-IN
-          </Link>
+          </a>
 
           <a
             className="start-btn transparent"
