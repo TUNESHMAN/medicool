@@ -7,3 +7,4 @@ export const INPUT_CHANGE = "INPUT_CHANGE";
 export const ADD_FORMULA = "ADD_FORMULA";
 export const GET_PRESCRIPTION_BY_ID = "GET_PRESCRIPTION_BY_ID";
 export const GET_FORMULA = "GET_FORMULA";
+export const NO_FORMULA ="NO_FORMULA"

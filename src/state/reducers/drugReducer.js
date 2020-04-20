@@ -26,7 +26,6 @@ const drugReducer = (state = initialState, action) => {
         },
       };
     case GET_PRESCRIPTION:
-      // console.log(`reducer`);
       return {
         ...state,
         drugs: action.payload,

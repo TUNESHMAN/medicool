@@ -84,6 +84,7 @@ body {
     line-height: 2em;
     color: rgb(165, 61, 42);
     margin-bottom: 0px;
+    margin-top: 40px;
   }
   
   .sub-text {
@@ -348,8 +349,29 @@ body {
     margin-left: 450px;
     text-align: center;
   }
+
+  #buttons{
+    margin-right: 430px;
+  }
+
+  .para{
+    margin-top: 30px;
+  }
   
-  .start-btn transparent1 {
+  .start-btn1 {
+    text-decoration: none;
+    border: 1px solid black;
+    color: teal;
+    width: 190px;
+    font-weight: bold;
+    padding: 0.8em 2em;
+    display: inline-block;
+    background: burlywood;
+    text-align: center;
+    margin-right: 15px;
+  }
+
+  .start-btn2 {
     text-decoration: none;
     border: 1px solid black;
     color: teal;

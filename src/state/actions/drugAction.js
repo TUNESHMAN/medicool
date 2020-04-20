@@ -7,12 +7,15 @@ import {
   GET_PRESCRIPTION_BY_ID,
   ADD_FORMULA,
   GET_FORMULA,
+  NO_FORMULA,
 } from "../types/types";
 import { axiosWithAuth } from "../../utils/axiosWithAuth";
 export const getPrescription = () => (dispatch) => {
   axiosWithAuth()
     .get(`/prescription`)
     .then((res) => {
+      console.log(res);
+
       dispatch({
         type: GET_PRESCRIPTION,
         payload: res.data.prescription,
@@ -92,14 +95,31 @@ export const getPrescriptionById = (_id) => (dispatch) => {
     });
 };
 
-export const getFormula = (id) => (dispatch) => {
-  axiosWithAuth()
-  .get(`/formula/${id}`).then((res)=>{
-    console.log(res.data);
-    dispatch({
-      type: GET_FORMULA,
-      payload: res.data
-    })
-    
-  });
+// export const getFormula = (id) => (dispatch) => {
+//   axiosWithAuth()
+//     .get(`/formula/${id}`)
+//     .then((res) => {
+//       console.log(res.data);
+//       dispatch({
+//         type: GET_FORMULA,
+//         payload: res.data,
+//       });
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//       dispatch({
+//         type: NO_FORMULA,
+//         payload: {},
+//       });
+//     });
+// };
+
+export const getFormula = (formula) => {
+  return {
+    type: GET_FORMULA,
+    payload: formula,
+  };
+};
+export const noFormula = () => {
+  return { type: NO_FORMULA, payload: {} };
 };

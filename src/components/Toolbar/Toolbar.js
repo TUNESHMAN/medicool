@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import styles from "./Toolbar.module.css";
-import Newlogo from "../../images/Newlogo.png";
+// import Newlogo from "../../images/Newlogo.png";
 // // import decode from "jwt-decode";
 
 import Prescription from "../Prescription";

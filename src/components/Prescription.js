@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from "react";
+import {axiosWithAuth} from "../utils/axiosWithAuth"
 import { connect } from "react-redux";
 import {
   getPrescription,
   deletePrescription,
   getFormula,
+  noFormula
 } from "../state/actions/drugAction";
 import { Card, Avatar, Button, Modal } from "antd";
-import logo from "../images/mediool.png";
+// import logo from "../images/mediool.png";
 import { PlusOutlined, EyeOutlined, DeleteOutlined } from "@ant-design/icons";
 import HeaderSearchBar from "./Toolbar/HeaderSearchBar";
 import Toolbar from "./Toolbar/Toolbar";
 import AddPrescription from "./AddPrescription";
 import AddFormula from "./AddFormula";
+import {NO_FORMULA, GET_FORMULA} from "../state/types/types"
 
 // import "./form.css";
 
@@ -36,46 +39,51 @@ function Prescription(props) {
     console.log(medId);
   };
 
-  function handleView(_id) {
-    props.getFormula(_id);
-    let secondsToGo = 25;
-    let frequency = props.formula.formula.frequency;
-    let dose = props.formula.formula.dose;
-    let when = props.formula.formula.before_after_meal;
-    let duration = props.formula.formula.duration;
-    let times = props.formula.formula.number_of_times;
 
-    if (!props.formula.formula) {
-      const modal = Modal.error({
-        // title: props.formula.formula.frequency,
-        content: `Hi, you do not have any formula `,
-      });
-      const timer = setInterval(() => {
-        secondsToGo -= 1;
-        modal.update({
-          content: `Hi, you do not have any formula`,
+  function handleView(_id) {
+    axiosWithAuth()
+      .get(`/formula/${_id}`)
+      .then((res) => {
+        console.log(res.data);
+        props.getFormula(res.data);
+        console.log("true");
+        let secondsToGo = 25;
+        let frequency = res.data.frequency;
+        let dose = res.data.dose;
+        let when = res.data.before_after_meal;
+        const modal = Modal.info({
+          title: res.data.frequency,
+          content: `Hi, you will take ${dose},of this drug ${when}  ${frequency} `,
         });
-      }, 1000);
-      setTimeout(() => {
-        clearInterval(timer);
-        modal.destroy();
-      }, secondsToGo * 1000);
-    } else {
-      const modal = Modal.info({
-        title: props.formula.formula.frequency,
-        content: `Hi, you will take ${dose},of this drug ${when}  ${frequency} `,
-      });
-      const timer = setInterval(() => {
-        secondsToGo -= 1;
-        modal.update({
-          content: `Hi, you will take ${dose},of this drug ${when}  ${frequency}`,
+        const timer = setInterval(() => {
+          secondsToGo -= 1;
+          modal.update({
+            content: `Hi, you will take ${dose},of this drug ${when}  ${frequency}`,
+          });
+        }, 1000);
+        setTimeout(() => {
+          clearInterval(timer);
+          modal.destroy();
+        }, secondsToGo * 1000);
+      })
+      .catch(() => {
+        props.noFormula({});
+        console.log("false");
+        let secondsToGo = 25;
+        const modal = Modal.error({
+          content: `Hi, you do not have any formula `,
         });
-      }, 1000);
-      setTimeout(() => {
-        clearInterval(timer);
-        modal.destroy();
-      }, secondsToGo * 1000);
-    }
+        const timer = setInterval(() => {
+          secondsToGo -= 1;
+          modal.update({
+            content: `Hi, you do not have any formula`,
+          });
+        }, 1000);
+        setTimeout(() => {
+          clearInterval(timer);
+          modal.destroy();
+        }, secondsToGo * 1000);
+      });
   }
 
   function handleEnd() {
@@ -117,6 +125,7 @@ function Prescription(props) {
           {/* <Switch checked={!loading} onChange={onChange} /> */}
           {props.prescription.map((med, index) => (
             <Card
+              data-test-id="prescription-card"
               style={{ width: 300, marginTop: 16 }}
               actions={[
                 <PlusOutlined
@@ -132,7 +141,7 @@ function Prescription(props) {
               ]}
             >
               <Meta
-                avatar={<Avatar src={logo} />}
+                // avatar={<Avatar src={logo} />}
                 title={med.drug}
                 description={med.unit}
               />
@@ -164,4 +173,5 @@ export default connect(mapStateToProps, {
   getPrescription,
   deletePrescription,
   getFormula,
+  noFormula
 })(Prescription);

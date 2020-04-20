@@ -11,7 +11,8 @@ import reminder from "../images/reminder.jpg";
 import Injections from "../images/Injections.jpg";
 import Firstaid from "../images/Firstaid.jpg";
 import Disinfectant from "../images/Disinfectant.jpg";
-import { Link } from "react-router-dom";
+import tracker from "../images/tracker.jpg";
+import { Link, NavLink } from "react-router-dom";
 function Home() {
   return (
     <div>
@@ -25,24 +26,20 @@ function Home() {
       ></div>
       <div className="header-text">
         <p className="quick-header">
-          <strong>Welcome to Medicool</strong>
+          <strong>Welcome to MediCool</strong>
         </p>
         <p className="sub-text">
           <strong>Keep track of your medications</strong>
         </p>
 
         <div id="buttons">
-          <a className="start-btn transparent" href="/login">
+          <NavLink className="start-btn1" to="/login">
             SIGN-IN
-          </a>
+          </NavLink>
 
-          <a
-            className="start-btn transparent"
-            href="about.html"
-            target="_blank"
-          >
+          <NavLink className="start-btn2" to="/about">
             LEARN MORE
-          </a>
+          </NavLink>
         </div>
       </div>
 
@@ -52,8 +49,8 @@ function Home() {
         <div className="about-section">
           <img
             className="about-section3"
-            src="./Images/adult-black-and-white-child-736428.jpg"
-            alt=""
+            src={tracker}
+            alt="app-description"
           />
           <p className="para">
             Everyone can make use of the MediCool app. If there are drugs for
@@ -69,7 +66,9 @@ function Home() {
             Also, it is very easy to see all prescriptions and formula. All you
             need do is login to your dashboard.
           </p>
-          <p className="earn">Create a Prescription</p>
+          <NavLink to="/login">
+            <p className="earn">Create a Prescription</p>
+          </NavLink>
         </div>
       </section>
 
@@ -84,7 +83,7 @@ function Home() {
           <p>
             MediCool is a good way to learn how to take your drugs religiously.
             With this app, it becomes easier to stick to whatever plan our
-            doctor has given to you. 
+            doctor has given to you.
           </p>
           <p className="earn">Check Dashboard</p>
         </div>
@@ -94,69 +93,45 @@ function Home() {
 
       <div className="list-items">
         <div className="tools">
-          <img className="profile-img" src={antibiotics} alt="Chore" />
+          <img className="profile-img" src={antibiotics} alt="antibiotics" />
           <p className="txt">Antibiotics</p>
-          <p className="price">Points: 5</p>
         </div>
 
-         <div class="tools">
-          <img
-            class="profile-img"
-            src={solution}
-            alt="Tool"
-          />
-          <p class="txt">Solution</p>
-          <p class="price">Points: 10</p>
-        </div> 
-        
-        <div class="tools">
-          <img
-            class="profile-img"
-            src={Injections}
-            alt="Chore"
-          />
-          <p class="txt">Injection</p>
-          <p class="price">Points: 25</p>
-        </div> 
+        <div className="tools">
+          <img className="profile-img" src={solution} alt="solution" />
+          <p className="txt">Solution</p>
+        </div>
 
-         <div class="tools">
-          <img
-            class="profile-img"
-            src={Disinfectant}
-            alt="Chore"
-          />
-          <p class="txt">Disinfectant</p>
-          <p class="price">Points: 15</p>
-        </div> 
+        <div className="tools">
+          <img className="profile-img" src={Injections} alt="injection" />
+          <p className="txt">Injection</p>
+        </div>
 
-        <div class="list-items2">
-          <div class="tools">
-            <img class="profile-img" src={syrup} alt="Chore" />
-            <p class="txt">Syrup</p>
-            <p class="price">Points: 10</p>
+        <div className="tools">
+          <img className="profile-img" src={Disinfectant} alt="disinfectant" />
+          <p className="txt">Disinfectant</p>
+        </div>
+
+        <div className="list-items2">
+          <div className="tools">
+            <img className="profile-img" src={syrup} alt="syrup" />
+            <p className="txt">Syrup</p>
           </div>
 
-          <div class="tools">
-            <img class="profile-img" src={capsule} alt="Chore" />
-            <p class="txt">Capsule</p>
-            <p class="price">Points: 3</p>
+          <div className="tools">
+            <img className="profile-img" src={capsule} alt="capsule" />
+            <p className="txt">Capsule</p>
           </div>
 
-          <div class="tools">
-            <img class="profile-img" src={antiseptics} alt="Chore" />
-            <p class="txt">Antiseptics</p>
-            <p class="price">Points: 7</p>
+          <div className="tools">
+            <img className="profile-img" src={antiseptics} alt="antiseptics" />
+            <p className="txt">Antiseptics</p>
           </div>
 
-          <div class="tools">
-            <img
-              class="profile-img"
-              src={Firstaid}
-              alt="Chore"
-            />
-            <p class="txt">First Aid</p>
-            <p class="price">Points: 5</p>
-          </div> 
+          <div className="tools">
+            <img className="profile-img" src={Firstaid} alt="Chore" />
+            <p className="txt">First Aid</p>
+          </div>
         </div>
       </div>
 

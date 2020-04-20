@@ -7,10 +7,10 @@ import {Link} from "react-router-dom";
 function Navbar() {
   return (
     <header>
-      <img class="logo" src={LOGO} />
-      <nav class="nav-bar">
+      <img className="logo" src={LOGO} alt="logo" />
+      <nav className="nav-bar">
         <Link to="/">HOME</Link>
-        <Link to="/about" target="_blank">
+        <Link to="/about">
           ABOUT
         </Link>
         <Link to="/register">SIGN UP</Link>
