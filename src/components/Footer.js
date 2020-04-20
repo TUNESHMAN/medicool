@@ -1,4 +1,8 @@
 import React from "react";
+import { FaInstagram } from 'react-icons/fa';
+import { FaTwitter } from 'react-icons/fa';
+import { FaFacebook } from 'react-icons/fa';
+import { FaPhone} from 'react-icons/fa';
 
 function Footer() {
   return (
@@ -9,23 +13,20 @@ function Footer() {
           <p>House 25, Rawlings Street</p>
           <p>Naughton, Dublin</p>
           <p>
-            <i className="fas fa-tty"></i>+23412345678
-          </p>
-          <p>
-            <i className="fas fa-phone-alt"></i>
+            <FaPhone/>+23412345678
           </p>
         </div>
         <div>
           <h3>Join Us</h3>
           <ul>
             <li>
-              <i className="fab fa-facebook-square"></i>&nbsp;Facebook
+              <FaFacebook/>&nbsp;Facebook
             </li>
             <li>
-              <i className="fab fa-twitter-square"></i>&nbsp;Twitter
+              <FaTwitter/>&nbsp;Twitter
             </li>
             <li>
-              <i className="fab fa-instagram"></i>&nbsp;Instagram
+              <FaInstagram/>&nbsp;Instagram
             </li>
           </ul>
         </div>
@@ -48,13 +49,13 @@ function Footer() {
             <li>FAQ</li>
             <li>Create Chore</li>
             <li>Check Points</li>
-            <li>Email Us: info@MineChore.com</li>
+            <li>Email Us: info@mediCool.com</li>
           </ul>
         </div>
       </div>
 
       <div class="copyright">
-        <p>&copy;2019.Use My Tools. All right reserved</p>
+        <p>&copy;2020.mediCool. All right reserved</p>
       </div>
     </footer>
   );

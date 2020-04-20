@@ -1,4 +1,4 @@
-/* @import "~antd/dist/antd.css" */
+
 
 .login-form {
   max-width: 400px;
@@ -11,11 +11,15 @@
   width: 100%;
 }
 .ant-form-explain {
-    color: red;
+  color: red;
 }
-.forgot-password h1{
-    margin: 0 auto;
-    text-align: center;
-    margin-bottom: 30px;
-    font-size: 2rem;
+.forgot-password h1 {
+  margin: 0 auto;
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 2rem;
+}
+
+.form-div {
+  margin-top: 100px;
 }

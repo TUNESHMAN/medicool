@@ -1,13 +1,8 @@
 import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import styles from "./Toolbar.module.css";
-// import Newlogo from "../../images/Newlogo.png";
-// // import decode from "jwt-decode";
 
-import Prescription from "../Prescription";
-
-import { Layout, Menu, Icon, Button, Modal } from "antd";
-import { AddPrescription } from "../AddPrescription";
+import { Layout, Menu, Icon, Button} from "antd";
 
 const { Sider, Content } = Layout;
 
@@ -15,13 +10,6 @@ const Toolbar = (props) => {
   const [state, setState] = useState({
     collapsed: false,
   });
-
-  const token = localStorage.getItem("token");
-
-//   //   if (token !== null) {
-//   //     const decoded = decode(token);
-//   //     var userName = decoded.name;
-//   //   }
 
   const toggle = () => {
     setState({
@@ -96,11 +84,11 @@ const Toolbar = (props) => {
                   className={styles.navItem}
                   exact
                 >
-                <Icon type="home" />
-                 <span>Home</span>
-              </NavLink>
-             </Menu.Item>
-             <Menu.Item key="2" className={styles.menuItem}>
+                  <Icon type="home" />
+                  <span>Home</span>
+                </NavLink>
+              </Menu.Item>
+              <Menu.Item key="2" className={styles.menuItem}>
                 <NavLink
                   to="/prescription"
                   activeClassName={styles.navItemSeleted}
@@ -161,4 +149,3 @@ const Toolbar = (props) => {
 };
 
 export default Toolbar;
-
