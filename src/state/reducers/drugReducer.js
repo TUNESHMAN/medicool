@@ -1,12 +1,10 @@
 import {
   CREATE_PRESCRIPTION,
-  UPDATE_PRESCRIPTION,
-  DELETE_PRESCRIPTION,
   INPUT_CHANGE,
   GET_PRESCRIPTION,
   GET_PRESCRIPTION_BY_ID,
 } from "../types/types";
-import { axiosWithAuth } from "../../utils/axiosWithAuth";
+
 const initialState = {
   drugs: [],
   data: {},

@@ -21,7 +21,6 @@ const Addformula = (props) => {
     e.preventDefault();
     props.form.validateFieldsAndScroll((err, values) => {
       const formulaPayload = {
-        // prescription_id: prescription_id,
         frequency: values.frequency,
         dose: dose.toString(),
         number_of_times: times,
@@ -30,7 +29,6 @@ const Addformula = (props) => {
       };
       if (!err) {
         props.addFormula(formulaPayload,prescription_id);
-        console.log("payload >> ", formulaPayload);
         props.toggleFormula(prescription_id);
       } else {
         console.log("error", err);

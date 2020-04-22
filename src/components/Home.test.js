@@ -2,35 +2,32 @@ import React from "react";
 import * as rtl from "@testing-library/react";
 import Home from "../components/Home";
 import "@testing-library/jest-dom/extend-expect";
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 
+let wrapper;
+let MediCool = () => {
+  wrapper.queryByText("MediCool");
+};
+beforeEach(() => {
+  // we want the wrapper recreated at every test
+  wrapper = rtl.render(
+    <BrowserRouter>
+      <Home />
+    </BrowserRouter>
+  );
+});
 // react testing library requires a cleanup after each test
 
 afterEach(rtl.cleanup);
 
+describe("Home component", () => {
+  it("renders without crashing", () => {
+    // expect to match snapshot
+    expect(wrapper.container).toMatchSnapshot();
+  });
 
-let wrapper;
-beforeEach(() => {
-  // we want the wrapper recreated at every test
-  wrapper = rtl.render(
-    <Router>
-      <Home />
-    </Router>
-  );
-});
-// test("renders Medicool on Greeting component", async () => {
-//   // Arrange
-//   const { findAllByText } = render(
-//     <Router>
-//       <Home />
-//     </Router>
-//   );
-//   // Act
-//   const title = findAllByText(/Medicool/i);
-//   // Assert
-//   expect(title).toBeVisible();
-// });
-it("renders without crashing", () => {
-//   wrapper.debug();
-  expect(wrapper.container).toMatch()
+  it("renders MediCool on Home component", () => {
+    expect(MediCool()).toBeInTheDocument();
+    expect(MediCool()).toBeVisible();
+  });
 });

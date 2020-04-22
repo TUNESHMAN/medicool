@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import styles from "./Toolbar.module.css";
 
-import { Layout, Menu, Icon, Button} from "antd";
+import { Layout, Menu, Icon, Button, Modal } from "antd";
+import { AddPrescription } from "../AddPrescription";
 
 const { Sider, Content } = Layout;
 
@@ -15,6 +16,20 @@ const Toolbar = (props) => {
     setState({
       collapsed: !state.collapsed,
     });
+  };
+
+  const [visible, setVisible] = useState(false);
+
+  const toggleModal = () => {
+    setVisible(!visible);
+  };
+
+  const handleOk = () => {
+    setVisible(false);
+  };
+
+  const handleCancel = () => {
+    setVisible(false);
   };
 
   function logout() {
@@ -44,16 +59,6 @@ const Toolbar = (props) => {
                   : styles.logoAndCollapse
               }
             >
-              <Link to="/">
-                {/* <img
-                  src={Newlogo}
-                  alt="logo"
-                  className={
-                    state.collapsed ? styles.logoCollapsed : styles.logo
-                  }
-                  data-testid="logo"
-                /> */}
-              </Link>
               <Icon
                 className="trigger"
                 type={state.collapsed ? "menu-unfold" : "menu-fold"}
@@ -62,13 +67,6 @@ const Toolbar = (props) => {
                 data-testid="toggle-icon"
               />
             </div>
-            <h3
-              className={styles.greeting}
-              style={state.collapsed ? { display: "none" } : null}
-              data-testid="greeting"
-            >
-              {/* Welcome, {userName}! */}
-            </h3>
 
             <Menu
               className={state.collapsed ? styles.menuCollapsed : styles.menu}
@@ -98,20 +96,26 @@ const Toolbar = (props) => {
                   <span>Prescriptions</span>
                 </NavLink>
               </Menu.Item>
-              <Menu.Item key></Menu.Item>
-              {/* <Menu.Item key="3" className={styles.menuItem}>
-                <Button onClick={props.toggleModal}>Add Prescription</Button>
-              </Menu.Item> */}
 
-              {/* <Menu.Item key="3" className={styles.menuItem}>
-                <NavLink
+              <Menu.Item key="3" className={styles.menuItem}>
+                {/* <NavLink
                   to="/addprescription"
                   activeClassName={styles.navItemSeleted}
                   className={styles.navItem}
-                >
-                  <Icon type="plus" />
-                </NavLink>
-              </Menu.Item> */}
+                > */}
+                  <Button onClick={toggleModal}>Add Prescription</Button>
+                  <Modal
+                    title="Add a prescription"
+                    visible={visible}
+                    onOk={handleOk}
+                    onCancel={handleCancel}
+                    destroyOnClose={true}
+                    footer={null}
+                  >
+                    <AddPrescription />
+                  </Modal>
+                {/* </NavLink> */}
+              </Menu.Item>
             </Menu>
             <footer
               className={styles.footer}

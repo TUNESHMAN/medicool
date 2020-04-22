@@ -1,5 +1,4 @@
 import { ADD_FORMULA, GET_FORMULA } from "../types/types";
-import { axiosWithAuth } from "../../utils/axiosWithAuth";
 
 const initialFormula = {
   message: "",
