@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import styles from "./Toolbar.module.css";
+import WrappedNormalLoginForm from "../AddPrescription"
 
 import { Layout, Menu, Icon, Button, Modal } from "antd";
-import { AddPrescription } from "../AddPrescription";
+
 
 const { Sider, Content } = Layout;
 
@@ -72,7 +73,7 @@ const Toolbar = (props) => {
               className={state.collapsed ? styles.menuCollapsed : styles.menu}
               theme="light"
               mode="inline"
-              // defaultSelectedKeys="1"
+              defaultSelectedKeys="1"
               data-testid="menu"
             >
               <Menu.Item key="1" className={styles.menuItem}>
@@ -97,25 +98,19 @@ const Toolbar = (props) => {
                 </NavLink>
               </Menu.Item>
 
-              <Menu.Item key="3" className={styles.menuItem}>
-                {/* <NavLink
-                  to="/addprescription"
-                  activeClassName={styles.navItemSeleted}
-                  className={styles.navItem}
-                > */}
-                  <Button onClick={toggleModal}>Add Prescription</Button>
-                  <Modal
-                    title="Add a prescription"
-                    visible={visible}
-                    onOk={handleOk}
-                    onCancel={handleCancel}
-                    destroyOnClose={true}
-                    footer={null}
-                  >
-                    <AddPrescription />
-                  </Modal>
-                {/* </NavLink> */}
-              </Menu.Item>
+              {/* <Menu.Item key="3" className={styles.menuItem}> */}
+                <Button onClick={toggleModal}>Add Prescription</Button>
+                <Modal
+                  title="Add a prescription"
+                  visible={visible}
+                  onOk={handleOk}
+                  onCancel={handleCancel}
+                  destroyOnClose={true}
+                  footer={null}
+                >
+                  <WrappedNormalLoginForm toggleModal={toggleModal}/>
+                </Modal>
+              {/* </Menu.Item> */}
             </Menu>
             <footer
               className={styles.footer}

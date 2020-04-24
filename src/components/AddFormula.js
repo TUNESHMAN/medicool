@@ -4,11 +4,10 @@ import { Form, Icon, Input, Button, InputNumber } from "antd";
 import "./form.css";
 import { connect } from "react-redux";
 import { addFormula } from "../state/actions/drugAction";
-import axios from "axios";
+
 const Addformula = (props) => {
   const prescription_id = props.medId;
-  // console.log("moved", prescription_id);
-  // console.log(props);
+
   const [dose, setDose] = useState("");
   const [times, setTimes] = useState("");
   const handleDose = (value) => {
@@ -28,7 +27,7 @@ const Addformula = (props) => {
         before_after_meal: values.before,
       };
       if (!err) {
-        props.addFormula(formulaPayload,prescription_id);
+        props.addFormula(formulaPayload, prescription_id);
         props.toggleFormula(prescription_id);
       } else {
         console.log("error", err);

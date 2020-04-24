@@ -7,12 +7,11 @@ import {
   getFormula,
   noFormula,
 } from "../state/actions/drugAction";
-import { Card, Button, Modal } from "antd";
+import { Card, Modal } from "antd";
 import { PlusOutlined, EyeOutlined, DeleteOutlined } from "@ant-design/icons";
 import Toolbar from "./Toolbar/Toolbar";
-import AddPrescription from "./AddPrescription";
 import AddFormula from "./AddFormula";
-import { NO_FORMULA, GET_FORMULA } from "../state/types/types";
+
 import "./Styles.css";
 
 const { Meta } = Card;
@@ -23,7 +22,6 @@ function Prescription(props) {
 
   console.log(props.formula);
 
-  const [visible, setVisible] = useState(false);
   const [show, setShow] = useState(false);
   const [medId, setMedId] = useState("");
 
@@ -86,13 +84,6 @@ function Prescription(props) {
   function handleEnd() {
     setShow(false);
   }
-  // const handleOk = () => {
-  //   setVisible(false);
-  // };
-
-  // const handleCancel = () => {
-  //   setVisible(false);
-  // };
 
   useEffect(() => {
     props.getPrescription();
@@ -106,19 +97,7 @@ function Prescription(props) {
   return (
     <div>
       <Toolbar>
-        <div className="prescription-header">
-          {/* <h1>View Prescriptions</h1> */}
-          {/* <Button onClick={toggleModal}>Add Prescription</Button>
-          <Modal
-            title="Add a prescription"
-            visible={visible}
-            onOk={handleOk}
-            onCancel={handleCancel}
-            destroyOnClose={true}
-            footer={null}
-          >
-          </Modal> */}
-        </div>
+        <div className="prescription-header"></div>
 
         <div className="prescription-card">
           {props.prescription.length > 0 ? (

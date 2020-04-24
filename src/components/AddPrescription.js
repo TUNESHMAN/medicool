@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { postPrescription, getPrescription } from "../state/actions/drugAction";
 
 export const AddPrescription = (props) => {
+  console.log(props)
   const [formValues, setFormValues] = useState({
     drug: "",
     unit: "",
@@ -31,11 +32,7 @@ export const AddPrescription = (props) => {
     props.getPrescription()
   };
   const {
-    getFieldDecorator,
-    getFieldsError,
-    validateFields,
-    isFieldTouched,
-    getFieldError,
+    getFieldDecorator
   } = props.form;
 
   return (

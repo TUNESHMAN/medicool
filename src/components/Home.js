@@ -12,7 +12,7 @@ import Injections from "../images/Injections.jpg";
 import Firstaid from "../images/Firstaid.jpg";
 import Disinfectant from "../images/Disinfectant.jpg";
 import tracker from "../images/tracker.jpg";
-import { Link, NavLink } from "react-router-dom";
+import {NavLink } from "react-router-dom";
 function Home() {
   return (
     <div>
