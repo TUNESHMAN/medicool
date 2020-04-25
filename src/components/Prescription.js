@@ -7,7 +7,7 @@ import {
   getFormula,
   noFormula,
 } from "../state/actions/drugAction";
-import { Card, Modal } from "antd";
+import { Card, Modal, Spin } from "antd";
 import { PlusOutlined, EyeOutlined, DeleteOutlined } from "@ant-design/icons";
 import Toolbar from "./Toolbar/Toolbar";
 import AddFormula from "./AddFormula";
@@ -17,17 +17,10 @@ import "./Styles.css";
 const { Meta } = Card;
 
 function Prescription(props) {
-  console.log(props);
-  console.log(props.prescription);
-
-  console.log(props.formula);
-
   const [show, setShow] = useState(false);
   const [medId, setMedId] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  // const toggleModal = () => {
-  //   setVisible(!visible);
-  // };
   const toggleFormula = (id) => {
     setShow(!show);
     setMedId(id);
@@ -39,7 +32,6 @@ function Prescription(props) {
     axiosWithAuth()
       .get(`/formula/${_id}`)
       .then((res) => {
-        console.log(res.data);
         props.getFormula(res.data);
         console.log("true");
         let secondsToGo = 25;
@@ -101,9 +93,10 @@ function Prescription(props) {
 
         <div className="prescription-card">
           {props.prescription.length > 0 ? (
-            props.prescription.map((med, index) => (
+            props.prescription.map((med) => (
               <div className="card">
                 <Card
+                  key={med.id}
                   data-test-id="prescription-card"
                   style={{ width: 300 }}
                   actions={[
@@ -122,11 +115,19 @@ function Prescription(props) {
                     />,
                   ]}
                 >
-                  <Meta
-                    // avatar={<Avatar src={logo} />}
-                    title={med.drug}
-                    description={med.unit}
-                  />
+                  {/* <Meta title={med.drug} description={med.unit} /> */}
+                  <h3>
+                    <span>💊</span> : {med.drug}
+                  </h3>
+                  <p>
+                    <span>🧮 </span>: {med.unit}
+                  </p>
+                  <p>
+                    <span>📅</span>: {med.start_Date}
+                  </p>
+                  <p>
+                    <span>📅</span>: {med.end_Date}
+                  </p>
                 </Card>
               </div>
             ))

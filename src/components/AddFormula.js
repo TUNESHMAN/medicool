@@ -59,7 +59,6 @@ const Addformula = (props) => {
       <Form.Item>
         {getFieldDecorator(
           "dose",
-          {}
         )(
           <InputNumber
             name="dose"
@@ -76,7 +75,6 @@ const Addformula = (props) => {
       <Form.Item>
         {getFieldDecorator(
           "times",
-          {}
         )(
           <InputNumber
             name="Times"
@@ -94,7 +92,6 @@ const Addformula = (props) => {
       <Form.Item>
         {getFieldDecorator(
           "duration",
-          {}
         )(
           <Input
             name="duration"

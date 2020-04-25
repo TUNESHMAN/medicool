@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import styles from "./Toolbar.module.css";
-import WrappedNormalLoginForm from "../AddPrescription"
+import WrappedNormalLoginForm from "../AddPrescription";
 
 import { Layout, Menu, Icon, Button, Modal } from "antd";
-
 
 const { Sider, Content } = Layout;
 
@@ -98,8 +97,10 @@ const Toolbar = (props) => {
                 </NavLink>
               </Menu.Item>
 
-              {/* <Menu.Item key="3" className={styles.menuItem}> */}
-                <Button onClick={toggleModal}>Add Prescription</Button>
+              <Menu.Item key="3" className={styles.menuItem}>
+                <Icon type="plus" onClick={toggleModal} />
+                <span>Prescriptions</span>
+                </Menu.Item>
                 <Modal
                   title="Add a prescription"
                   visible={visible}
@@ -108,9 +109,9 @@ const Toolbar = (props) => {
                   destroyOnClose={true}
                   footer={null}
                 >
-                  <WrappedNormalLoginForm toggleModal={toggleModal}/>
+                  <WrappedNormalLoginForm toggleModal={toggleModal} />
                 </Modal>
-              {/* </Menu.Item> */}
+             
             </Menu>
             <footer
               className={styles.footer}
@@ -127,9 +128,9 @@ const Toolbar = (props) => {
                   Logout
                 </Button>
               </Link>
-              <p>
+              {/* <p>
                 <Icon type="setting" /> Profile Settings
-              </p>
+              </p> */}
             </footer>
           </Sider>
         </div>

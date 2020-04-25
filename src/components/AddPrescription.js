@@ -2,39 +2,40 @@ import React, { useState } from "react";
 import { Form, Icon, Input, Button, DatePicker } from "antd";
 import "./form.css";
 import { connect } from "react-redux";
+import * as moment from "moment";
 import { postPrescription, getPrescription } from "../state/actions/drugAction";
 
 export const AddPrescription = (props) => {
-  console.log(props)
-  const [formValues, setFormValues] = useState({
-    drug: "",
-    unit: "",
-    start_Date: "",
-    end_Date: "",
-  });
-  const handleChange = (e) => {
-    setFormValues({
-      ...formValues,
-      [e.target.name]: e.target.value,
-    });
+  const dateFormat = "YYYY/MM/DD";
+  const [start_Date, setStart_Date] = useState([moment(), moment()]);
+  const [end_Date, setEnd_Date] = useState([moment(), moment()]);
+
+  const handleStart = (value) => {
+    setStart_Date(value);
+  };
+  const handleEnd = (value) => {
+    setEnd_Date(value);
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newPres = {
-      drug: formValues.drug,
-      unit: formValues.unit,
-      start_Date: formValues.start_Date,
-      end_Date: formValues.end_Date,
-    };
-
-    props.postPrescription(newPres);
-    props.toggleModal();
-    props.getPrescription()
+    props.form.validateFieldsAndScroll((err, values) => {
+      const prescriptionPayload = {
+        drug: values.drug,
+        unit: values.unit,
+        start_Date: start_Date.format(dateFormat),
+        end_Date: end_Date.format(dateFormat),
+      };
+      console.log(`clicked`, prescriptionPayload);
+      if (!err) {
+        props.postPrescription(prescriptionPayload);
+        props.toggleModal();
+        props.getPrescription();
+      } else {
+        console.log(err);
+      }
+    });
   };
-  const {
-    getFieldDecorator
-  } = props.form;
-
+  const { getFieldDecorator } = props.form;
   return (
     <Form onSubmit={handleSubmit} className="login-form">
       <Form.Item>
@@ -50,8 +51,6 @@ export const AddPrescription = (props) => {
         })(
           <Input
             name="drug"
-            setFieldsValue={formValues.drug}
-            onChange={handleChange}
             //form icon in the email field, change type for different icons, see antdesign docs
             prefix={<Icon type="mail" style={{ color: "rgba(0,0,0,.25)" }} />}
             placeholder="Drug"
@@ -71,49 +70,54 @@ export const AddPrescription = (props) => {
         })(
           <Input
             name="unit"
-            setFieldsValue={formValues.unit}
-            onChange={handleChange}
             //form icon in the email field, change type for different icons, see antdesign docs
             prefix={<Icon type="mail" style={{ color: "rgba(0,0,0,.25)" }} />}
             placeholder="Unit"
           />
         )}
       </Form.Item>
-      <Form.Item
-        name="start_Date"
-        placeholder="Start"
-        onChange={handleChange}
-        setFieldsValue={formValues.start_Date}
-      >
+      <Form.Item name="start_Date" placeholder="Start">
         {getFieldDecorator("start_Date", {
           //rules are for the form validation
           rules: [
             { required: true, message: "When will this medication start?" },
             {
-              type: "date",
+              type: "object",
               message: "Date is not valid",
             },
           ],
-        })(<DatePicker />)}
+        })(
+          <DatePicker
+            name="start_Date"
+            // onChange={handleStart}
+            // setFieldsValue={start_Date}
+            setFieldsValue={moment(start_Date, dateFormat)}
+            format={dateFormat}
+            onChange={handleStart}
+          />
+        )}
       </Form.Item>
-      <Form.Item
-        name="end_Date"
-        placeholder="End"
-        onChange={handleChange}
-        setFieldsValue={formValues.end_Date}
-      >
+      <Form.Item name="end_Date" placeholder="End">
         {getFieldDecorator("end_Date", {
           //rules are for the form validation
           rules: [
             { required: true, message: "Please enter an end date" },
             {
-              type: "date",
+              type: "object",
               message: "Invalid email",
             },
           ],
-        })(<DatePicker />)}
+        })(
+          <DatePicker
+            name="end_Date"
+            // onChange={handleEnd}
+            // setFieldsValue={end_Date}
+            setFieldsValue={moment(end_Date, dateFormat)}
+            format={dateFormat}
+            onChange={handleEnd}
+          />
+        )}
       </Form.Item>
-
       <Form.Item>
         <Button type="primary" htmlType="submit" className="login-form-button">
           Add Prescription
@@ -122,7 +126,6 @@ export const AddPrescription = (props) => {
     </Form>
   );
 };
-
 const mapStateToProps = (state) => ({
   prescription: state.prescription.data,
   newPres: state.prescription.data,

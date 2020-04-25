@@ -14,7 +14,6 @@ function Navbar() {
           ABOUT
         </Link>
         <Link to="/register">SIGN UP</Link>
-        <Link to="/blog">BLOG</Link>
       </nav>
     </header>
   );

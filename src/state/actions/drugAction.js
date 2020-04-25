@@ -31,16 +31,16 @@ export const formInputChange = (name, value) => {
     },
   };
 };
-export const postPrescription = (newPres) => (dispatch) => {
+export const postPrescription = (prescriptionPayload) => (dispatch) => {
   axiosWithAuth()
-    .post(`/prescription/add`, newPres)
+    .post(`/prescription/add`, prescriptionPayload)
     .then((res) => {
-      console.log(res);
+      console.log(res, prescriptionPayload, `ACTION CALLED`);
       dispatch({
         type: CREATE_PRESCRIPTION,
         payload: res.data.prescription,
       });
-      console.log(res);
+      console.log(res, `ACTION CALLED`);
     })
     .catch((err) => {
       console.log(err);
@@ -50,7 +50,7 @@ export const deletePrescription = (_id) => (dispatch) => {
   axiosWithAuth()
     .delete(`/prescription/${_id}`)
     .then((res) => {
-      console.log(res.data);
+      console.log(res.data, `new prescription`);
       dispatch({
         type: "DELETE_PRESCRIPTION",
         payload: res.data._id,
