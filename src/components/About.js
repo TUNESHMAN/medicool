@@ -37,7 +37,7 @@ function About() {
           </p>
         </div>
 
-        <img className="tracker" src={woman} />
+        <img className="tracker" src={woman} alt="about-img" />
 
         {/* <WHY CHOOSE MediCool */}
         <div className="reason">
