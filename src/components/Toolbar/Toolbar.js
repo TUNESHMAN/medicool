@@ -64,7 +64,6 @@ const Toolbar = (props) => {
                 type={state.collapsed ? "menu-unfold" : "menu-fold"}
                 onClick={toggle}
                 style={{ fontSize: "24px" }}
-                data-testid="toggle-icon"
               />
             </div>
 
@@ -73,14 +72,12 @@ const Toolbar = (props) => {
               theme="light"
               mode="inline"
               defaultSelectedKeys="1"
-              data-testid="menu"
             >
               <Menu.Item key="1" className={styles.menuItem}>
                 <NavLink
                   to="/"
                   activeClassName={styles.navItemSeleted}
                   className={styles.navItem}
-                  exact
                 >
                   <Icon type="home" />
                   <span>Home</span>
@@ -100,30 +97,27 @@ const Toolbar = (props) => {
               <Menu.Item key="3" className={styles.menuItem}>
                 <Icon type="plus" onClick={toggleModal} />
                 <span>Prescriptions</span>
-                </Menu.Item>
-                <Modal
-                  title="Add a prescription"
-                  visible={visible}
-                  onOk={handleOk}
-                  onCancel={handleCancel}
-                  destroyOnClose={true}
-                  footer={null}
-                >
-                  <WrappedNormalLoginForm toggleModal={toggleModal} />
-                </Modal>
-             
+              </Menu.Item>
+              <Modal
+                title="Add a prescription"
+                visible={visible}
+                onOk={handleOk}
+                onCancel={handleCancel}
+                destroyOnClose={true}
+                footer={null}
+              >
+                <WrappedNormalLoginForm toggleModal={toggleModal} />
+              </Modal>
             </Menu>
             <footer
               className={styles.footer}
               style={state.collapsed ? { display: "none" } : null}
-              data-testid="footer"
             >
               <Link to="/login">
                 <Button
                   onClick={() => logout()}
                   type="primary"
                   className={styles.logoutButton}
-                  data-testid="logout-button"
                 >
                   Logout
                 </Button>

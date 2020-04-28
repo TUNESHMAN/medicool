@@ -1,17 +1,24 @@
 import React, { useState } from "react";
 import "antd/dist/antd.css";
-import { Form, Icon, Input, Button, InputNumber } from "antd";
+import { Form, Icon, Input, Button, InputNumber, Select } from "antd";
 import "./form.css";
 import { connect } from "react-redux";
 import { addFormula } from "../state/actions/drugAction";
+
+const { Option } = Select;
 
 const Addformula = (props) => {
   const prescription_id = props.medId;
 
   const [dose, setDose] = useState("");
   const [times, setTimes] = useState("");
+  const [before, setBefore] = useState("");
   const handleDose = (value) => {
     setDose(value);
+  };
+
+  const handleSelectChange = (value) => {
+    setBefore(value);
   };
   const handleTimes = (value) => {
     setTimes(value);
@@ -24,7 +31,7 @@ const Addformula = (props) => {
         dose: dose.toString(),
         number_of_times: times,
         duration: values.duration,
-        before_after_meal: values.before,
+        before_after_meal: before,
       };
       if (!err) {
         props.addFormula(formulaPayload, prescription_id);
@@ -57,9 +64,7 @@ const Addformula = (props) => {
         )}
       </Form.Item>
       <Form.Item>
-        {getFieldDecorator(
-          "dose",
-        )(
+        {getFieldDecorator("dose")(
           <InputNumber
             name="dose"
             min={1}
@@ -73,9 +78,7 @@ const Addformula = (props) => {
         )}
       </Form.Item>
       <Form.Item>
-        {getFieldDecorator(
-          "times",
-        )(
+        {getFieldDecorator("times")(
           <InputNumber
             name="Times"
             min={1}
@@ -90,9 +93,7 @@ const Addformula = (props) => {
         )}
       </Form.Item>
       <Form.Item>
-        {getFieldDecorator(
-          "duration",
-        )(
+        {getFieldDecorator("duration")(
           <Input
             name="duration"
             type="string"
@@ -113,12 +114,18 @@ const Addformula = (props) => {
             },
           ],
         })(
-          <Input
-            name="before_after_meal"
-            //form icon in the email field, change type for different icons, see antdesign docs
-            prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
+          <Select
+            style={{ width: 200 }}
             placeholder="Before or after meal?"
-          />
+            optionFilterProp="children"
+            onChange={handleSelectChange}
+            filterOption={(input, option) =>
+              option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+            }
+          >
+            <Option value="before meal">before meal</Option>
+            <Option value="after meal">after meal</Option>
+          </Select>
         )}
       </Form.Item>
       <Form.Item>

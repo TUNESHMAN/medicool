@@ -5,9 +5,12 @@ import {
   GET_PRESCRIPTION_BY_ID,
   GET_FORMULA,
   NO_FORMULA,
+  FETCH_PRESCRIPTION_START,
 } from "../types/types";
 import { axiosWithAuth } from "../../utils/axiosWithAuth";
+
 export const getPrescription = () => (dispatch) => {
+  dispatch({ type: FETCH_PRESCRIPTION_START });
   axiosWithAuth()
     .get(`/prescription`)
     .then((res) => {

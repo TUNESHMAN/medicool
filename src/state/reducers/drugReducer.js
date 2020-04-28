@@ -3,9 +3,12 @@ import {
   INPUT_CHANGE,
   GET_PRESCRIPTION,
   GET_PRESCRIPTION_BY_ID,
+  FETCH_PRESCRIPTION_START,
 } from "../types/types";
 
 const initialState = {
+  isFetching: false,
+  error: "",
   drugs: [],
   data: {},
 };
@@ -23,9 +26,16 @@ const drugReducer = (state = initialState, action) => {
           [action.payload.name]: action.payload.value,
         },
       };
+
+    case FETCH_PRESCRIPTION_START:
+      return {
+        ...state,
+        isFetching: true,
+      };
     case GET_PRESCRIPTION:
       return {
         ...state,
+        isFetching: false,
         drugs: action.payload,
       };
     case CREATE_PRESCRIPTION:

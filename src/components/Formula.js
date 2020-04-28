@@ -13,4 +13,4 @@ const mapStateToProps = (state) => ({
   formula: state.formula,
 });
 
-export default connect(mapStateToProps, {getFormula})(Formula);
+export default connect(mapStateToProps, { getFormula })(Formula);

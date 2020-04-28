@@ -25,6 +25,7 @@ header {
   position: fixed;
   top: 0;
 }
+
 .nav-bar {
   align-items: center;
   display: flex;
@@ -107,6 +108,13 @@ nav a:hover {
   margin: 220px auto;
   padding: 3em 4%;
   margin-bottom: -30px;
+}
+.card-info {
+  font-family: "Roboto Slab", serif;
+}
+
+.card-details {
+  font-family: "Raleway", sans-serif;
 }
 
 .third-section {
@@ -397,6 +405,10 @@ footer {
   margin-bottom: 40px;
   align-self: center;
 }
+
+/* .spinner {
+  margin-right: 80px;
+} */
 
 .prescription-card {
   display: flex;

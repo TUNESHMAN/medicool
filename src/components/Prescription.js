@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
+import "./Styles.css";
 import { connect } from "react-redux";
 import {
   getPrescription,
@@ -14,12 +15,11 @@ import AddFormula from "./AddFormula";
 
 import "./Styles.css";
 
-const { Meta } = Card;
+// const { Meta } = Card;
 
 function Prescription(props) {
   const [show, setShow] = useState(false);
   const [medId, setMedId] = useState("");
-  const [loading, setLoading] = useState(false);
 
   const toggleFormula = (id) => {
     setShow(!show);
@@ -39,7 +39,6 @@ function Prescription(props) {
         let dose = res.data.dose;
         let when = res.data.before_after_meal;
         const modal = Modal.info({
-          title: res.data.frequency,
           content: `Hi, you will take ${dose},of this drug ${when}  ${frequency} `,
         });
         const timer = setInterval(() => {
@@ -90,10 +89,15 @@ function Prescription(props) {
     <div>
       <Toolbar>
         <div className="prescription-header"></div>
-
-        <div className="prescription-card">
-          {props.prescription.length > 0 ? (
-            props.prescription.map((med) => (
+        {!props.prescription && !props.isFetching && (
+          <h2>Create a prescription!</h2>
+        )}
+        {props.isFetching && (
+          <Spin style={{marginLeft: "480px", marginTop:"250px"}} size="large" spinning={props.isFetching} />
+        )}
+        {props.prescription && !props.isFetching && (
+          <div className="prescription-card">
+            {props.prescription.map((med) => (
               <div className="card">
                 <Card
                   key={med.id}
@@ -115,26 +119,29 @@ function Prescription(props) {
                     />,
                   ]}
                 >
-                  {/* <Meta title={med.drug} description={med.unit} /> */}
-                  <h3>
-                    <span>💊</span> : {med.drug}
-                  </h3>
+                  {/* <Meta title={med.drug} /> */}
                   <p>
-                    <span>🧮 </span>: {med.unit}
+                    <span className="card-info">Drug Name :</span>
+                    <span className="card-details"> {med.drug}</span>
+                  </p>
+
+                  <p>
+                    <span className="card-info">Drug Count : </span>
+                    <span className="card-details"> {med.unit}</span>
                   </p>
                   <p>
-                    <span>📅</span>: {med.start_Date}
+                    <span className="card-info">Start Date :</span>
+                    <span className="card-details"> {med.start_Date}</span>
                   </p>
                   <p>
-                    <span>📅</span>: {med.end_Date}
+                    <span className="card-info">End Date :</span>
+                    <span className="card-details"> {med.end_Date}</span>
                   </p>
                 </Card>
               </div>
-            ))
-          ) : (
-            <h1>There are no prescriptions</h1>
-          )}
-        </div>
+            ))}
+          </div>
+        )}
         <div>
           <Modal
             title="Have a new formula?"
@@ -154,6 +161,7 @@ function Prescription(props) {
 const mapStateToProps = (state) => ({
   prescription: state.prescription.drugs,
   formula: state.formula,
+  isFetching: state.prescription.isFetching,
 });
 
 export default connect(mapStateToProps, {
