@@ -94,6 +94,7 @@ function Prescription(props) {
         )}
         {props.isFetching && (
           <Spin
+          className="spinner"
             style={{ marginLeft: "480px", marginTop: "250px" }}
             size="large"
             spinning={props.isFetching}
@@ -109,7 +110,7 @@ function Prescription(props) {
                 <Card
                   key={med.id}
                   data-test-id="prescription-card"
-                  style={{ width: 300 }}
+                  style={{ width: 300, marginBottom: "12px" }}
                   actions={[
                     <PlusOutlined
                       key="plus"

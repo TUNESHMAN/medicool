@@ -642,3 +642,15 @@ footer {
     padding-top: 50px;
   }
 }
+
+@media(max-width: 500px){
+  .card{
+    padding-left: 70px;
+  }
+}
+
+@media(max-width:500px){
+  .spinner{
+    margin-left: 100px;
+  }
+}
