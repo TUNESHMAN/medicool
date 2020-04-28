@@ -13,8 +13,14 @@ const Addformula = (props) => {
   const [dose, setDose] = useState("");
   const [times, setTimes] = useState("");
   const [before, setBefore] = useState("");
+  const [frequency, setFrequency] = useState("");
+
   const handleDose = (value) => {
     setDose(value);
+  };
+
+  const handleFrequency = (value) => {
+    setFrequency(value);
   };
 
   const handleSelectChange = (value) => {
@@ -27,7 +33,7 @@ const Addformula = (props) => {
     e.preventDefault();
     props.form.validateFieldsAndScroll((err, values) => {
       const formulaPayload = {
-        frequency: values.frequency,
+        frequency: frequency,
         dose: dose.toString(),
         number_of_times: times,
         duration: values.duration,
@@ -48,23 +54,43 @@ const Addformula = (props) => {
         {getFieldDecorator("frequency", {
           //rules are for the form validation
           rules: [
-            { required: true, message: "Please input an email!" },
+            { required: true, message: "Please, choose frequency" },
             {
               type: "string",
               message: "How often will you use this drug?",
             },
           ],
         })(
-          <Input
-            name="frequency"
-            //form icon in the email field, change type for different icons, see antdesign docs
-            prefix={<Icon type="mail" style={{ color: "rgba(0,0,0,.25)" }} />}
+          <Select
+            showSearch
+            style={{ width: 200 }}
             placeholder="Frequency"
-          />
+            optionFilterProp="children"
+            onChange={handleFrequency}
+            filterOption={(input, option) =>
+              option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+            }
+          >
+            <Option value="hourly">hourly</Option>
+            <Option value="daily">daily</Option>
+            <Option value="weekly">weekly</Option>
+            <Option value="monthly">monthly</Option>
+            <Option value="quarterly">quarterly</Option>
+            <Option value="yearly">yearly</Option>
+          </Select>
         )}
       </Form.Item>
       <Form.Item>
-        {getFieldDecorator("dose")(
+        {getFieldDecorator("dose", {
+          //rules are for the form validation
+          rules: [
+            { required: true, message: "Please, enter dose!" },
+            {
+              type: "number",
+              message: "Input the quantity?",
+            },
+          ],
+        })(
           <InputNumber
             name="dose"
             min={1}
@@ -78,7 +104,16 @@ const Addformula = (props) => {
         )}
       </Form.Item>
       <Form.Item>
-        {getFieldDecorator("times")(
+        {getFieldDecorator("times", {
+          //rules are for the form validation
+          rules: [
+            { required: true, message: "Please, enter number of times!" },
+            {
+              type: "number",
+              message: "How many times?",
+            },
+          ],
+        })(
           <InputNumber
             name="Times"
             min={1}
@@ -93,13 +128,24 @@ const Addformula = (props) => {
         )}
       </Form.Item>
       <Form.Item>
-        {getFieldDecorator("duration")(
+        {getFieldDecorator("duration", {
+          //rules are for the form validation
+          rules: [
+            { required: true, message: "Please, choose duration" },
+            {
+              type: "string",
+              message: "What is the duration of use?",
+            },
+          ],
+        })(
           <Input
             name="duration"
             type="string"
             //form icon in the email field, change type for different icons, see antdesign docs
-            prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
-            placeholder="How long?"
+            prefix={
+              <Icon type="clock-circle" style={{ color: "rgba(0,0,0,.25)" }} />
+            }
+            placeholder="Duration"
           />
         )}
       </Form.Item>
@@ -107,7 +153,7 @@ const Addformula = (props) => {
         {getFieldDecorator("before", {
           //rules are for the form validation
           rules: [
-            { required: true, message: "Before or after meal" },
+            { required: true, message: "Before or after meal?" },
             {
               type: "string",
               message: "For how long?",

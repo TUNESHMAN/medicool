@@ -52,7 +52,9 @@ export const AddPrescription = (props) => {
           <Input
             name="drug"
             //form icon in the email field, change type for different icons, see antdesign docs
-            prefix={<Icon type="mail" style={{ color: "rgba(0,0,0,.25)" }} />}
+            prefix={
+              <Icon type="info-circle" style={{ color: "rgba(0,0,0,.25)" }} />
+            }
             placeholder="Drug"
           />
         )}
@@ -71,8 +73,10 @@ export const AddPrescription = (props) => {
           <Input
             name="unit"
             //form icon in the email field, change type for different icons, see antdesign docs
-            prefix={<Icon type="mail" style={{ color: "rgba(0,0,0,.25)" }} />}
-            placeholder="Unit"
+            prefix={
+              <Icon type="info-circle" style={{ color: "rgba(0,0,0,.25)" }} />
+            }
+            placeholder="How many tea or tablespoons?"
           />
         )}
       </Form.Item>
@@ -89,8 +93,6 @@ export const AddPrescription = (props) => {
         })(
           <DatePicker
             name="start_Date"
-            // onChange={handleStart}
-            // setFieldsValue={start_Date}
             setFieldsValue={moment(start_Date, dateFormat)}
             format={dateFormat}
             onChange={handleStart}
@@ -110,8 +112,6 @@ export const AddPrescription = (props) => {
         })(
           <DatePicker
             name="end_Date"
-            // onChange={handleEnd}
-            // setFieldsValue={end_Date}
             setFieldsValue={moment(end_Date, dateFormat)}
             format={dateFormat}
             onChange={handleEnd}

@@ -1,4 +1,5 @@
 import {
+  DELETE_PRESCRIPTION,
   CREATE_PRESCRIPTION,
   INPUT_CHANGE,
   GET_PRESCRIPTION,
@@ -6,6 +7,7 @@ import {
   GET_FORMULA,
   NO_FORMULA,
   FETCH_PRESCRIPTION_START,
+  FETCH_PRESCRIPTION_FAIL,
 } from "../types/types";
 import { axiosWithAuth } from "../../utils/axiosWithAuth";
 
@@ -22,7 +24,10 @@ export const getPrescription = () => (dispatch) => {
       });
     })
     .catch((err) => {
-      console.log(err);
+      dispatch({
+        type: FETCH_PRESCRIPTION_FAIL,
+        payload: err.response,
+      });
     });
 };
 export const formInputChange = (name, value) => {
@@ -38,12 +43,10 @@ export const postPrescription = (prescriptionPayload) => (dispatch) => {
   axiosWithAuth()
     .post(`/prescription/add`, prescriptionPayload)
     .then((res) => {
-      console.log(res, prescriptionPayload, `ACTION CALLED`);
       dispatch({
         type: CREATE_PRESCRIPTION,
         payload: res.data.prescription,
       });
-      console.log(res, `ACTION CALLED`);
     })
     .catch((err) => {
       console.log(err);
@@ -53,7 +56,6 @@ export const deletePrescription = (_id) => (dispatch) => {
   axiosWithAuth()
     .delete(`/prescription/${_id}`)
     .then((res) => {
-      console.log(res.data, `new prescription`);
       dispatch({
         type: "DELETE_PRESCRIPTION",
         payload: res.data._id,

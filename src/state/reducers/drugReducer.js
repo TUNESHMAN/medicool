@@ -4,6 +4,8 @@ import {
   GET_PRESCRIPTION,
   GET_PRESCRIPTION_BY_ID,
   FETCH_PRESCRIPTION_START,
+  FETCH_PRESCRIPTION_FAIL,
+  DELETE_PRESCRIPTION,
 } from "../types/types";
 
 const initialState = {
@@ -32,11 +34,21 @@ const drugReducer = (state = initialState, action) => {
         ...state,
         isFetching: true,
       };
+    case FETCH_PRESCRIPTION_FAIL:
+      return {
+        ...state,
+        isFetching: false,
+      };
     case GET_PRESCRIPTION:
       return {
         ...state,
         isFetching: false,
         drugs: action.payload,
+      };
+    case DELETE_PRESCRIPTION:
+      return {
+        ...state,
+        drugs: state.drugs.filter((pres) => pres.id !== action.payload),
       };
     case CREATE_PRESCRIPTION:
       return {

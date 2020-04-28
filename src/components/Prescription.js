@@ -93,8 +93,15 @@ function Prescription(props) {
           <h2>Create a prescription!</h2>
         )}
         {props.isFetching && (
-          <Spin style={{marginLeft: "480px", marginTop:"250px"}} size="large" spinning={props.isFetching} />
+          <Spin
+            style={{ marginLeft: "480px", marginTop: "250px" }}
+            size="large"
+            spinning={props.isFetching}
+          />
         )}
+        {/* {props.prescription.length == 0 && props.isFetching === false ? (
+          <h1>There is no prescription</h1>
+        ) : null} */}
         {props.prescription && !props.isFetching && (
           <div className="prescription-card">
             {props.prescription.map((med) => (
@@ -119,7 +126,6 @@ function Prescription(props) {
                     />,
                   ]}
                 >
-                  {/* <Meta title={med.drug} /> */}
                   <p>
                     <span className="card-info">Drug Name :</span>
                     <span className="card-details"> {med.drug}</span>
