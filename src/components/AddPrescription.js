@@ -25,13 +25,11 @@ export const AddPrescription = (props) => {
         start_Date: start_Date.format(dateFormat),
         end_Date: end_Date.format(dateFormat),
       };
-      console.log(`clicked`, prescriptionPayload);
       if (!err) {
         props.postPrescription(prescriptionPayload);
         props.toggleModal();
         props.getPrescription();
       } else {
-        console.log(err);
       }
     });
   };

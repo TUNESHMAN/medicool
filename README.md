@@ -1,4 +1,4 @@
-# medicool
+# MediCool
 
 MediCool is an app that helps you recall what the doctor told you. With this app, you wouldn't struggle to remember how and when you would take your capsules, pills, and even supplements.
 

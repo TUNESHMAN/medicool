@@ -16,8 +16,6 @@ export const getPrescription = () => (dispatch) => {
   axiosWithAuth()
     .get(`/prescription`)
     .then((res) => {
-      console.log(res);
-
       dispatch({
         type: GET_PRESCRIPTION,
         payload: res.data.prescription,
@@ -48,9 +46,7 @@ export const postPrescription = (prescriptionPayload) => (dispatch) => {
         payload: res.data.prescription,
       });
     })
-    .catch((err) => {
-      console.log(err);
-    });
+    .catch((err) => {});
 };
 export const deletePrescription = (_id) => (dispatch) => {
   axiosWithAuth()
@@ -61,39 +57,31 @@ export const deletePrescription = (_id) => (dispatch) => {
         payload: res.data._id,
       });
     })
-    .catch((err) => {
-      console.log(err, `this is an error`);
-    });
+    .catch((err) => {});
 };
 
 export const addFormula = (formulaPayload, id) => (dispatch) => {
   axiosWithAuth()
     .post(`/formula/add/${id}`, formulaPayload)
     .then((res) => {
-      console.log(res, `Added formula`);
       dispatch({
         type: "ADD_FORMULA",
         payload: res.data.prescription,
       });
     })
-    .catch((err) => {
-      console.log(err, `formula error`);
-    });
+    .catch((err) => {});
 };
 
 export const getPrescriptionById = (_id) => (dispatch) => {
   axiosWithAuth()
     .get(`/prescription/find/${_id}`)
     .then((res) => {
-      console.log(res);
       dispatch({
         type: GET_PRESCRIPTION_BY_ID,
         payload: res.data.prescription,
       });
     })
-    .catch((err) => {
-      console.log(err);
-    });
+    .catch((err) => {});
 };
 
 export const getFormula = (formula) => {

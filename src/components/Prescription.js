@@ -12,10 +12,7 @@ import { Card, Modal, Spin } from "antd";
 import { PlusOutlined, EyeOutlined, DeleteOutlined } from "@ant-design/icons";
 import Toolbar from "./Toolbar/Toolbar";
 import AddFormula from "./AddFormula";
-
 import "./Styles.css";
-
-// const { Meta } = Card;
 
 function Prescription(props) {
   const [show, setShow] = useState(false);
@@ -24,7 +21,6 @@ function Prescription(props) {
   const toggleFormula = (id) => {
     setShow(!show);
     setMedId(id);
-    console.log(medId);
     props.getPrescription();
   };
 
@@ -33,7 +29,6 @@ function Prescription(props) {
       .get(`/formula/${_id}`)
       .then((res) => {
         props.getFormula(res.data);
-        console.log("true");
         let secondsToGo = 25;
         let frequency = res.data.frequency;
         let dose = res.data.dose;
@@ -54,7 +49,6 @@ function Prescription(props) {
       })
       .catch(() => {
         props.noFormula({});
-        console.log("false");
         let secondsToGo = 25;
         const modal = Modal.error({
           content: `Hi, you do not have any formula `,
@@ -93,12 +87,9 @@ function Prescription(props) {
           <h2>Create a prescription!</h2>
         )}
         {props.isFetching && (
-          <Spin
-          className="spinner"
-            style={{ marginLeft: "480px", marginTop: "250px" }}
-            size="large"
-            spinning={props.isFetching}
-          />
+          <div className="spinner">
+            <Spin size="large" spinning={props.isFetching} />
+          </div>
         )}
         {/* {props.prescription.length == 0 && props.isFetching === false ? (
           <h1>There is no prescription</h1>
@@ -110,7 +101,11 @@ function Prescription(props) {
                 <Card
                   key={med.id}
                   data-test-id="prescription-card"
-                  style={{ width: 300, marginBottom: "12px" }}
+                  style={{
+                    width: 300,
+                    marginBottom: "12px",
+                    borderRadius: "12px",
+                  }}
                   actions={[
                     <PlusOutlined
                       key="plus"

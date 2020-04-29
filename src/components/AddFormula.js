@@ -43,7 +43,6 @@ const Addformula = (props) => {
         props.addFormula(formulaPayload, prescription_id);
         props.toggleFormula(prescription_id);
       } else {
-        console.log("error", err);
       }
     });
   };

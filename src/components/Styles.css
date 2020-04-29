@@ -406,9 +406,7 @@ footer {
   align-self: center;
 }
 
-/* .spinner {
-  margin-right: 80px;
-} */
+
 
 .prescription-card {
   display: flex;
@@ -419,6 +417,20 @@ footer {
   justify-content: space-between;
 }
 
+.spinner {
+  /* text-align: center;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+  margin-bottom: 20px;
+  padding: 30px 50px;
+  margin: 20px 0; */
+  margin-left: 280px;
+  margin-top: 120px;
+}
+
+.spinner {
+  background: rgba(255,255,255,0.08);
+}
 /* RESPONSIVENESS */
 @media (max-width: 500px) {
   .base {
@@ -484,7 +496,7 @@ footer {
 
 @media (max-width: 500px) {
   .txt {
-    margin-left: 50px;
+    margin-left: 30px;
     text-align: center;
     padding-right: 20px;
   }
@@ -492,7 +504,7 @@ footer {
 
 @media (max-width: 500px) {
   .tracker {
-    margin-left: 20px;
+    margin-left: 8px;
     width: 300px;
     align-self: center;
   }
@@ -501,7 +513,7 @@ footer {
   .txt1 {
     display: flex;
     justify-content: center;
-    padding-left: 15px;
+    padding-left: 2px;
   }
 }
 
@@ -523,7 +535,7 @@ footer {
     font-size: 25px;
     display: flex;
     justify-content: flex-start;
-    padding-left: 40px;
+    padding-left: 20px;
     padding-right: 20px;
   }
 }
@@ -563,7 +575,7 @@ footer {
 
 @media (max-width: 500px) {
   .list-items {
-    margin-left: -50px;
+    margin-left: -30px;
   }
 }
 @media (max-width: 500px) {
@@ -582,6 +594,12 @@ footer {
   p.earn:hover {
     background: #3a2a22;
     cursor: pointer;
+  }
+}
+
+@media (max-width: 500px) {
+  .earn {
+    margin-left: 25px;
   }
 }
 
@@ -643,14 +661,21 @@ footer {
   }
 }
 
-@media(max-width: 500px){
-  .card{
-    padding-left: 70px;
+@media (max-width: 500px) {
+  .card {
+    padding-left: 32px;
   }
 }
 
-@media(max-width:500px){
-  .spinner{
-    margin-left: 100px;
+@media (max-width: 500px) {
+  .spinner {
+    margin-right: 250px;
+    padding-right: 120px;
+  }
+}
+
+@media (max-width: 500px) {
+  .med-desc {
+    padding-left: 25px;
   }
 }

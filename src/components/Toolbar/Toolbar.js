@@ -122,9 +122,9 @@ const Toolbar = (props) => {
                   Logout
                 </Button>
               </Link>
-              {/* <p>
+              <p>
                 <Icon type="setting" /> Profile Settings
-              </p> */}
+              </p>
             </footer>
           </Sider>
         </div>

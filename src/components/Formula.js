@@ -3,8 +3,6 @@ import { connect } from "react-redux";
 import { getFormula } from "../state/actions/drugAction";
 
 function Formula(props) {
-  console.log(props);
-
   return <div>{!props.formula && <h1>You do not have any formula</h1>}</div>;
 }
 
