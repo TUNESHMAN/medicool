@@ -74,7 +74,7 @@ export const AddPrescription = (props) => {
             prefix={
               <Icon type="info-circle" style={{ color: "rgba(0,0,0,.25)" }} />
             }
-            placeholder="How many tea or tablespoons?"
+            placeholder="1 tablespoon or 8 teaspoons?"
           />
         )}
       </Form.Item>

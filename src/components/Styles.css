@@ -412,18 +412,8 @@ footer {
 }
 
 .spinner {
-  /* text-align: center;
-  background: rgba(0, 0, 0, 0.05);
-  border-radius: 4px;
-  margin-bottom: 20px;
-  padding: 30px 50px;
-  margin: 20px 0; */
   margin-left: 280px;
   margin-top: 120px;
-}
-
-.spinner {
-  background: rgba(255, 255, 255, 0.08);
 }
 /* RESPONSIVENESS */
 @media (max-width: 500px) {
@@ -668,14 +658,15 @@ footer {
 
 @media (max-width: 500px) {
   .card {
-    padding-left: 32px;
+    padding-left: 13px;
+    /* padding-right: 32px; */
   }
 }
 
 @media (max-width: 500px) {
   .spinner {
-    margin-right: 250px;
-    padding-right: 120px;
+    margin-right: 300px;
+    padding-right: 170px;
   }
 }
 

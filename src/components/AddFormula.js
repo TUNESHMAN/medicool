@@ -144,7 +144,7 @@ const Addformula = (props) => {
             prefix={
               <Icon type="clock-circle" style={{ color: "rgba(0,0,0,.25)" }} />
             }
-            placeholder="Duration"
+            placeholder="Duration - e.g 1 month, 3 years etc."
           />
         )}
       </Form.Item>

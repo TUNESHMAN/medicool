@@ -94,8 +94,8 @@ const Toolbar = (props) => {
                 </NavLink>
               </Menu.Item>
 
-              <Menu.Item key="3" className={styles.menuItem}>
-                <Icon type="plus" onClick={toggleModal} />
+              <Menu.Item key="3" className={styles.menuItem} onClick={toggleModal}>
+                <Icon type="plus"/>
                 <span>Prescriptions</span>
               </Menu.Item>
               <Modal
