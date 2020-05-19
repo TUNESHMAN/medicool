@@ -41,7 +41,7 @@ const LoginForm = (props) => {
   };
   const { getFieldDecorator } = props.form;
   return (
-    <div>
+    <div className="form-container">
       <div
         className="form-component"
         style={{
