@@ -42,12 +42,12 @@ const LoginForm = (props) => {
   const { getFieldDecorator } = props.form;
   return (
     <div className="form-container">
-      <div
+      {/* <div
         className="form-component"
         style={{
           backgroundImage: `url(${loginBackground})`,
         }}
-      ></div>
+      ></div> */}
       <div className="form-div">
         <Spin spinning={loading}>
           <h1 className="register-header">Sign-in</h1>

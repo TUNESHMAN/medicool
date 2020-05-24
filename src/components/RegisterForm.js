@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Form, Icon, Input, Button, InputNumber, message, Spin } from "antd";
 import "./form.css";
 import axios from "axios";
@@ -14,6 +14,11 @@ const RegisterForm = (props) => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+    props.form.validateFields((error, values) => {
+      if (!error) {
+        console.log("Received values of form: ", values);
+      }
+    });
     setLoading(true);
     // make a post request to register endpoint
     props.form.validateFieldsAndScroll((error, values) => {
@@ -46,20 +51,47 @@ const RegisterForm = (props) => {
       }
     });
   };
-  const { getFieldDecorator } = props.form;
+  const {
+    getFieldDecorator,
+    getFieldsError,
+    getFieldError,
+    isFieldTouched,
+    validateFields,
+  } = props.form;
+
+  useEffect(() => {
+    validateFields();
+  }, [validateFields]);
+
+  function hasErrors(fieldsError) {
+    return Object.keys(fieldsError).some((field) => fieldsError[field]);
+  }
+
+  // Only show error after a field is touched.
+  const firstNameError =
+    isFieldTouched("firstName") && getFieldError("firstName");
+  const lastNameError = isFieldTouched("lastName") && getFieldError("lastName");
+  const ageError = isFieldTouched("age") && getFieldError("age");
+  const emailError = isFieldTouched("email") && getFieldError("email");
+  const passwordError = isFieldTouched("password") && getFieldError("password");
   return (
     <div>
-      <div
+      {/* <div
         className="form-component"
         style={{
           backgroundImage: `url(${registerBackground})`,
         }}
-      ></div>
+      ></div> */}
       <div className="form-div">
         <Spin spinning={loading}>
           <h1 className="register-header">Sign-up</h1>
           <Form onSubmit={handleSubmit} className="login-form">
-            <Form.Item>
+            <Form.Item
+              name="firstName"
+              validateStatus={firstNameError ? "error" : ""}
+              hasFeedback
+              help={firstNameError || ""}
+            >
               {getFieldDecorator("firstName", {
                 //rules are for the form validation
                 rules: [
@@ -80,7 +112,12 @@ const RegisterForm = (props) => {
                 />
               )}
             </Form.Item>
-            <Form.Item>
+            <Form.Item
+              name="lastName"
+              validateStatus={lastNameError ? "error" : ""}
+              hasFeedback
+              help={lastNameError || ""}
+            >
               {getFieldDecorator("lastName", {
                 //rules are for the form validation
                 rules: [
@@ -101,7 +138,12 @@ const RegisterForm = (props) => {
                 />
               )}
             </Form.Item>
-            <Form.Item>
+            <Form.Item
+              name="age"
+              validateStatus={ageError ? "error" : ""}
+              hasFeedback
+              help={ageError || ""}
+            >
               {getFieldDecorator("age", {
                 //rules are for the form validation
                 rules: [
@@ -126,7 +168,12 @@ const RegisterForm = (props) => {
                 />
               )}
             </Form.Item>
-            <Form.Item>
+            <Form.Item
+              name="email"
+              validateStatus={emailError ? "error" : ""}
+              hasFeedback
+              help={emailError || ""}
+            >
               {getFieldDecorator("email", {
                 //rules are for the form validation
                 rules: [
@@ -147,7 +194,12 @@ const RegisterForm = (props) => {
                 />
               )}
             </Form.Item>
-            <Form.Item>
+            <Form.Item
+              name="password"
+              validateStatus={passwordError ? "error" : ""}
+              hasFeedback
+              help={passwordError || ""}
+            >
               {getFieldDecorator("password", {
                 //rules are for the form validation
                 rules: [
@@ -177,6 +229,7 @@ const RegisterForm = (props) => {
                 type="primary"
                 htmlType="submit"
                 className="login-form-button"
+                disabled={hasErrors(getFieldsError())}
               >
                 Register
               </Button>

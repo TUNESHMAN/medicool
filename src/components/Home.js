@@ -13,6 +13,8 @@ import Disinfectant from "../images/Disinfectant.jpg";
 import tracker from "../images/tracker.jpg";
 import { NavLink } from "react-router-dom";
 function Home() {
+  // const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/tuneshman/upload";
+  // const CLOUDINARY_UPLOAD_PRESET = "e5gsr7d5";
   return (
     <div className="home-div">
       <Navbar />
