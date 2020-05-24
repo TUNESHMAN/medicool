@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "antd/dist/antd.css";
 import { Form, Icon, Input, Button, message, Spin } from "antd";
 import "./form.css";
@@ -39,7 +39,25 @@ const LoginForm = (props) => {
       }
     });
   };
-  const { getFieldDecorator } = props.form;
+  const {
+    getFieldDecorator,
+    getFieldsError,
+    getFieldError,
+    isFieldTouched,
+    validateFields,
+  } = props.form;
+
+  useEffect(() => {
+    validateFields();
+  }, [validateFields]);
+
+  function hasErrors(fieldsError) {
+    return Object.keys(fieldsError).some((field) => fieldsError[field]);
+  }
+
+  // Only show error after a field is touched.
+  const emailError = isFieldTouched("email") && getFieldError("email");
+  const passwordError = isFieldTouched("password") && getFieldError("password");
   return (
     <div className="form-container">
       {/* <div
@@ -52,7 +70,12 @@ const LoginForm = (props) => {
         <Spin spinning={loading}>
           <h1 className="register-header">Sign-in</h1>
           <Form onSubmit={handleSubmit} className="login-form">
-            <Form.Item>
+            <Form.Item
+              name="email"
+              validateStatus={emailError ? "error" : ""}
+              hasFeedback
+              help={emailError || ""}
+            >
               {getFieldDecorator("email", {
                 //rules are for the form validation
                 rules: [
@@ -73,7 +96,12 @@ const LoginForm = (props) => {
                 />
               )}
             </Form.Item>
-            <Form.Item>
+            <Form.Item
+              name="password"
+              validateStatus={passwordError ? "error" : ""}
+              hasFeedback
+              help={passwordError || ""}
+            >
               {getFieldDecorator("password", {
                 //rules are for the form validation
                 rules: [
@@ -100,6 +128,7 @@ const LoginForm = (props) => {
                 type="primary"
                 htmlType="submit"
                 className="login-form-button"
+                disabled={hasErrors(getFieldsError())}
               >
                 Login
               </Button>
