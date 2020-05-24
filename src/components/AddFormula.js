@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "antd/dist/antd.css";
 import { Form, Icon, Input, Button, InputNumber, Select } from "antd";
 import "./form.css";
@@ -46,10 +46,34 @@ const Addformula = (props) => {
       }
     });
   };
-  const { getFieldDecorator } = props.form;
+  function hasErrors(fieldsError) {
+    return Object.keys(fieldsError).some((field) => fieldsError[field]);
+  }
+  const {
+    getFieldDecorator,
+    getFieldsError,
+    validateFields,
+    isFieldTouched,
+    getFieldError,
+  } = props.form;
+  useEffect(() => {
+    validateFields();
+  }, [validateFields]);
+
+  const frequencyError =
+    isFieldTouched("frequency") && getFieldError("frequency");
+  const doseError = isFieldTouched("dose") && getFieldError("dose");
+  const timesError = isFieldTouched("times") && getFieldError("times");
+  const durationError = isFieldTouched("duration") && getFieldError("duration");
+  const beforeError = isFieldTouched("before") && getFieldError("before");
   return (
     <Form onSubmit={handleSubmit} className="login-form">
-      <Form.Item>
+      <Form.Item
+        name="frequency"
+        validateStatus={frequencyError ? "error" : ""}
+        hasFeedback
+        help={frequencyError || ""}
+      >
         {getFieldDecorator("frequency", {
           //rules are for the form validation
           rules: [
@@ -79,7 +103,12 @@ const Addformula = (props) => {
           </Select>
         )}
       </Form.Item>
-      <Form.Item>
+      <Form.Item
+        name="dose"
+        validateStatus={doseError ? "error" : ""}
+        hasFeedback
+        help={doseError || ""}
+      >
         {getFieldDecorator("dose", {
           //rules are for the form validation
           rules: [
@@ -102,7 +131,12 @@ const Addformula = (props) => {
           />
         )}
       </Form.Item>
-      <Form.Item>
+      <Form.Item
+        name="times"
+        validateStatus={timesError ? "error" : ""}
+        hasFeedback
+        help={timesError || ""}
+      >
         {getFieldDecorator("times", {
           //rules are for the form validation
           rules: [
@@ -126,7 +160,12 @@ const Addformula = (props) => {
           />
         )}
       </Form.Item>
-      <Form.Item>
+      <Form.Item
+        name="duration"
+        validateStatus={durationError ? "error" : ""}
+        hasFeedback
+        help={durationError || ""}
+      >
         {getFieldDecorator("duration", {
           //rules are for the form validation
           rules: [
@@ -148,7 +187,12 @@ const Addformula = (props) => {
           />
         )}
       </Form.Item>
-      <Form.Item>
+      <Form.Item
+        name="before"
+        validateStatus={beforeError ? "error" : ""}
+        hasFeedback
+        help={beforeError || ""}
+      >
         {getFieldDecorator("before", {
           //rules are for the form validation
           rules: [
@@ -174,7 +218,12 @@ const Addformula = (props) => {
         )}
       </Form.Item>
       <Form.Item>
-        <Button type="primary" htmlType="submit" className="login-form-button">
+        <Button
+          type="primary"
+          htmlType="submit"
+          className="login-form-button"
+          disabled={hasErrors(getFieldsError())}
+        >
           Add this formula
         </Button>
       </Form.Item>

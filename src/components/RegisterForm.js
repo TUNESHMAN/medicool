@@ -14,11 +14,6 @@ const RegisterForm = (props) => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    props.form.validateFields((error, values) => {
-      if (!error) {
-        console.log("Received values of form: ", values);
-      }
-    });
     setLoading(true);
     // make a post request to register endpoint
     props.form.validateFieldsAndScroll((error, values) => {

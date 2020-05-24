@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Form, Icon, Input, Button, DatePicker } from "antd";
 import "./form.css";
 import { connect } from "react-redux";
@@ -33,10 +33,33 @@ export const AddPrescription = (props) => {
       }
     });
   };
-  const { getFieldDecorator } = props.form;
+  function hasErrors(fieldsError) {
+    return Object.keys(fieldsError).some((field) => fieldsError[field]);
+  }
+  const {
+    getFieldDecorator,
+    getFieldsError,
+    validateFields,
+    isFieldTouched,
+    getFieldError,
+  } = props.form;
+  useEffect(() => {
+    validateFields();
+  }, [validateFields]);
+
+  const drugError = isFieldTouched("drug") && getFieldError("drug");
+  const unitError = isFieldTouched("unit") && getFieldError("unit");
+  const start_DateError =
+    isFieldTouched("start_Date") && getFieldError("end_Date");
+  const end_DateError = isFieldTouched("end_Date") && getFieldError("end_Date");
   return (
     <Form onSubmit={handleSubmit} className="login-form">
-      <Form.Item>
+      <Form.Item
+        name="drug"
+        validateStatus={drugError ? "error" : ""}
+        hasFeedback
+        help={drugError || ""}
+      >
         {getFieldDecorator("drug", {
           //rules are for the form validation
           rules: [
@@ -57,7 +80,12 @@ export const AddPrescription = (props) => {
           />
         )}
       </Form.Item>
-      <Form.Item>
+      <Form.Item
+        name="unit"
+        validateStatus={unitError ? "error" : ""}
+        hasFeedback
+        help={unitError || ""}
+      >
         {getFieldDecorator("unit", {
           //rules are for the form validation
           rules: [
@@ -78,7 +106,12 @@ export const AddPrescription = (props) => {
           />
         )}
       </Form.Item>
-      <Form.Item name="start_Date" placeholder="Start">
+      <Form.Item
+        name="start_Date"
+        validateStatus={start_DateError ? "error" : ""}
+        hasFeedback
+        help={start_DateError || ""}
+      >
         {getFieldDecorator("start_Date", {
           //rules are for the form validation
           rules: [
@@ -94,10 +127,16 @@ export const AddPrescription = (props) => {
             setFieldsValue={moment(start_Date, dateFormat)}
             format={dateFormat}
             onChange={handleStart}
+            placeholder="Start Date"
           />
         )}
       </Form.Item>
-      <Form.Item name="end_Date" placeholder="End">
+      <Form.Item
+        name="end_Date"
+        validateStatus={end_DateError ? "error" : ""}
+        hasFeedback
+        help={end_DateError || ""}
+      >
         {getFieldDecorator("end_Date", {
           //rules are for the form validation
           rules: [
@@ -113,11 +152,17 @@ export const AddPrescription = (props) => {
             setFieldsValue={moment(end_Date, dateFormat)}
             format={dateFormat}
             onChange={handleEnd}
+            placeholder="End Date"
           />
         )}
       </Form.Item>
       <Form.Item>
-        <Button type="primary" htmlType="submit" className="login-form-button">
+        <Button
+          type="primary"
+          htmlType="submit"
+          className="login-form-button"
+          disabled={hasErrors(getFieldsError())}
+        >
           Add Prescription
         </Button>
       </Form.Item>
