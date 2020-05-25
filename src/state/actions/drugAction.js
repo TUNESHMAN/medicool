@@ -10,7 +10,8 @@ import {
   FETCH_PRESCRIPTION_FAIL,
 } from "../types/types";
 import { axiosWithAuth } from "../../utils/axiosWithAuth";
-
+import AddSuccess from "../../components/AddSuccess";
+import AddError from "../../components/AddError";
 export const getPrescription = () => (dispatch) => {
   dispatch({ type: FETCH_PRESCRIPTION_START });
   axiosWithAuth()
@@ -41,14 +42,16 @@ export const postPrescription = (prescriptionPayload) => (dispatch) => {
   axiosWithAuth()
     .post(`/prescription/add`, prescriptionPayload)
     .then((res) => {
-      console.log(res.data);
+      AddSuccess();
 
       dispatch({
         type: CREATE_PRESCRIPTION,
         payload: res.data.prescription,
       });
     })
-    .catch((err) => {});
+    .catch((err) => {
+      AddError();
+    });
 };
 export const deletePrescription = (_id) => (dispatch) => {
   axiosWithAuth()

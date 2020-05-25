@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Form, Icon, Input, Button, DatePicker } from "antd";
+import { Form, Icon, Input, Button, DatePicker, message } from "antd";
 import "./form.css";
 import { connect } from "react-redux";
 import * as moment from "moment";
@@ -26,10 +26,12 @@ export const AddPrescription = (props) => {
         end_Date: end_Date.format(dateFormat),
       };
       if (!err) {
+        message.loading(`You are adding a prescription...`, 3.5);
         props.postPrescription(prescriptionPayload);
         props.toggleModal();
         props.getPrescription();
       } else {
+        message.error(`Prescription could not be added`, 3.5);
       }
     });
   };
