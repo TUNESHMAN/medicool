@@ -12,6 +12,8 @@ import {
 import { axiosWithAuth } from "../../utils/axiosWithAuth";
 import AddSuccess from "../../components/AddSuccess";
 import AddError from "../../components/AddError";
+import DeleteSuccess from "../../components/DeleteSuccess";
+import DeleteError from "../../components/DeleteError";
 export const getPrescription = () => (dispatch) => {
   dispatch({ type: FETCH_PRESCRIPTION_START });
   axiosWithAuth()
@@ -43,7 +45,6 @@ export const postPrescription = (prescriptionPayload) => (dispatch) => {
     .post(`/prescription/add`, prescriptionPayload)
     .then((res) => {
       AddSuccess();
-
       dispatch({
         type: CREATE_PRESCRIPTION,
         payload: res.data.prescription,
@@ -57,12 +58,15 @@ export const deletePrescription = (_id) => (dispatch) => {
   axiosWithAuth()
     .delete(`/prescription/${_id}`)
     .then((res) => {
+      DeleteSuccess();
       dispatch({
         type: "DELETE_PRESCRIPTION",
         payload: res.data._id,
       });
     })
-    .catch((err) => {});
+    .catch((err) => {
+      DeleteError();
+    });
 };
 
 export const addFormula = (formulaPayload, id) => (dispatch) => {

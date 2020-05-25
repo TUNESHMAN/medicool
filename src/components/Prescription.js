@@ -17,7 +17,6 @@ import "./Styles.css";
 function Prescription(props) {
   console.log(props.prescription, props.isFetching);
 
-
   const [show, setShow] = useState(false);
   const [medId, setMedId] = useState("");
 
@@ -85,11 +84,6 @@ function Prescription(props) {
   return (
     <div>
       <Toolbar>
-        {/* <div className="prescription-header"></div>
-        {!props.prescription && !props.isFetching && (
-          <h2>Create a prescription!</h2>
-        )} */}
-
         {props.isFetching ? (
           <div className="spinner">
             <Spin size="large" spinning={props.isFetching} />
