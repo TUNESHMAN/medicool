@@ -72,14 +72,13 @@ function Prescription(props) {
     setShow(false);
   }
 
-  useEffect(() => {
-    props.getPrescription();
-  }, []);
-
   const handleDelete = (_id) => {
     props.deletePrescription(_id);
     props.getPrescription();
   };
+  useEffect(() => {
+    props.getPrescription();
+  }, []);
 
   return (
     <div>
@@ -88,7 +87,7 @@ function Prescription(props) {
           <div className="spinner">
             <Spin size="large" spinning={props.isFetching} />
           </div>
-        ) : props.prescription.length < 1 ? (
+        ) : props.prescription.length === 0 ? (
           <h2>There are no prescriptions</h2>
         ) : (
           <div className="prescription-card">

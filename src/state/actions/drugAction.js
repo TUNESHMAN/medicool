@@ -1,11 +1,12 @@
 import {
-  DELETE_PRESCRIPTION,
   CREATE_PRESCRIPTION,
+  DELETE_PRESCRIPTION,
   INPUT_CHANGE,
   GET_PRESCRIPTION,
   GET_PRESCRIPTION_BY_ID,
   GET_FORMULA,
   NO_FORMULA,
+  ADD_FORMULA,
   FETCH_PRESCRIPTION_START,
   FETCH_PRESCRIPTION_FAIL,
 } from "../types/types";
@@ -60,7 +61,7 @@ export const deletePrescription = (_id) => (dispatch) => {
     .then((res) => {
       DeleteSuccess();
       dispatch({
-        type: "DELETE_PRESCRIPTION",
+        type: DELETE_PRESCRIPTION,
         payload: res.data._id,
       });
     })
@@ -74,7 +75,7 @@ export const addFormula = (formulaPayload, id) => (dispatch) => {
     .post(`/formula/add/${id}`, formulaPayload)
     .then((res) => {
       dispatch({
-        type: "ADD_FORMULA",
+        type: ADD_FORMULA,
         payload: res.data.prescription,
       });
     })
