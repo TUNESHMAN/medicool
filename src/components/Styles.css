@@ -412,8 +412,14 @@ footer {
 }
 
 .spinner {
- margin-left: 280px;
+  margin-left: 280px;
   margin-top: 120px;
+}
+
+.heading {
+  display: flex;
+  margin-top: 60px;
+  margin-left: 50px;
 }
 /* RESPONSIVENESS */
 @media (max-width: 500px) {
