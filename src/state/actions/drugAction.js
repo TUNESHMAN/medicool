@@ -59,11 +59,14 @@ export const deletePrescription = (_id) => (dispatch) => {
   axiosWithAuth()
     .delete(`/prescription/${_id}`)
     .then((res) => {
+      console.log(res.data.prescription._id);
+
       DeleteSuccess();
       dispatch({
         type: DELETE_PRESCRIPTION,
-        payload: res.data._id,
+        payload: res.data.prescription._id,
       });
+      getPrescription();
     })
     .catch((err) => {
       DeleteError();

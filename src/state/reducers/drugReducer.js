@@ -48,12 +48,12 @@ const drugReducer = (state = initialState, action) => {
     case DELETE_PRESCRIPTION:
       return {
         ...state,
-        drugs: state.drugs.filter((pres) => pres.id !== action.payload),
+        drugs: state.drugs.filter((pres) => pres._id !== action.payload),
       };
     case CREATE_PRESCRIPTION:
       return {
         ...state,
-        data: action.payload,
+        drugs: action.payload,
       };
     default:
       return state;

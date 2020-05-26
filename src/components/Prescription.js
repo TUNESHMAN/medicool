@@ -72,13 +72,15 @@ function Prescription(props) {
     setShow(false);
   }
 
-  const handleDelete = (_id) => {
-    props.deletePrescription(_id);
-    props.getPrescription();
-  };
   useEffect(() => {
     props.getPrescription();
   }, []);
+
+  const handleDelete = (_id) => {
+    props.deletePrescription(_id);
+    // props.getPrescription();
+  };
+  
 
   return (
     <div>
