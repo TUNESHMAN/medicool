@@ -53,7 +53,7 @@ const drugReducer = (state = initialState, action) => {
     case CREATE_PRESCRIPTION:
       return {
         ...state,
-        drugs: action.payload,
+        data: action.payload,
       };
     default:
       return state;
