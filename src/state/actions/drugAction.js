@@ -50,6 +50,7 @@ export const postPrescription = (prescriptionPayload) => (dispatch) => {
         type: CREATE_PRESCRIPTION,
         payload: res.data.prescription,
       });
+      getPrescription();
     })
     .catch((err) => {
       AddError();
