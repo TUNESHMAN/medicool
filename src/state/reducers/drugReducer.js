@@ -12,7 +12,6 @@ const initialState = {
   isFetching: false,
   error: "",
   drugs: [],
-  data: {},
 };
 
 const drugReducer = (state = initialState, action) => {
@@ -53,7 +52,7 @@ const drugReducer = (state = initialState, action) => {
     case CREATE_PRESCRIPTION:
       return {
         ...state,
-        data: action.payload,
+        drugs: [action.payload, ...state.drugs]
       };
     default:
       return state;

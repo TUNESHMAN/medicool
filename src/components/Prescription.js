@@ -15,7 +15,7 @@ import AddFormula from "./AddFormula";
 import "./Styles.css";
 
 function Prescription(props) {
-  console.log(props.prescription, props.isFetching);
+  console.log(props.medicine);
 
   const [show, setShow] = useState(false);
   const [medId, setMedId] = useState("");
@@ -89,13 +89,13 @@ function Prescription(props) {
           <div className="spinner">
             <Spin size="large" spinning={props.isFetching} />
           </div>
-        ) : props.prescription.length === 0 ? (
+        ) : props.medicine.length === 0 ? (
           <div className="heading">
             <h2>There are no prescriptions</h2>
           </div>
         ) : (
           <div className="prescription-card">
-            {props.prescription.map((med) => (
+            {props.medicine.map((med) => (
               <div className="card">
                 <Card
                   key={med.id}
@@ -161,7 +161,7 @@ function Prescription(props) {
 }
 
 const mapStateToProps = (state) => ({
-  prescription: state.prescription.drugs,
+  medicine: state.prescription.drugs,
   formula: state.formula,
   isFetching: state.prescription.isFetching,
 });

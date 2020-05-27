@@ -45,6 +45,8 @@ export const postPrescription = (prescriptionPayload) => (dispatch) => {
   axiosWithAuth()
     .post(`/prescription/add`, prescriptionPayload)
     .then((res) => {
+      console.log(res.data.prescription);
+      
       AddSuccess();
       dispatch({
         type: CREATE_PRESCRIPTION,

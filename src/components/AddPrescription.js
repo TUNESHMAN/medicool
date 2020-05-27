@@ -172,8 +172,8 @@ export const AddPrescription = (props) => {
   );
 };
 const mapStateToProps = (state) => ({
-  prescription: state.prescription.data,
-  newPres: state.prescription.data,
+  prescription: state.prescription.drugs,
+  newPres: state.prescription.drugs,
 });
 const WrappedNormalLoginForm = Form.create({ name: "normal_login" })(
   AddPrescription
