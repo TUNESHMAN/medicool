@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "./Navbar";
 import woman from "../images/woman.jpg";
-import background2 from "../images/background2.jpg";
+import background2 from "../images/background2.png";
 
 function About() {
   return (
