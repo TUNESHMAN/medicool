@@ -4,6 +4,7 @@ import { Form, Icon, Input, Button, message, Spin } from "antd";
 import "./form.css";
 import axios from "axios";
 import { NavLink } from "react-router-dom";
+import Navbar from "./Navbar";
 
 const LoginForm = (props) => {
   const [loading, setLoading] = useState(false);
@@ -59,6 +60,7 @@ const LoginForm = (props) => {
   const passwordError = isFieldTouched("password") && getFieldError("password");
   return (
     <div className="form-container">
+      <Navbar/>
       {/* <div
         className="form-component"
         style={{

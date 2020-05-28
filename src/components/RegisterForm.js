@@ -3,6 +3,7 @@ import { Form, Icon, Input, Button, InputNumber, message, Spin } from "antd";
 import "./form.css";
 import axios from "axios";
 import { NavLink } from "react-router-dom";
+import Navbar from "./Navbar";
 
 const RegisterForm = (props) => {
   const [formAge, setFormAge] = useState("");
@@ -70,6 +71,7 @@ const RegisterForm = (props) => {
   const passwordError = isFieldTouched("password") && getFieldError("password");
   return (
     <div>
+      <Navbar/>
       {/* <div
         className="form-component"
         style={{

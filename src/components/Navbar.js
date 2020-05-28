@@ -9,7 +9,6 @@ function Navbar() {
       <div className="logo-container">
         <h2 className="logo">MediCool</h2>
       </div>
-      {/* <img className="logo" src={LOGO} alt="logo" /> */}
       <nav className="nav-bar">
         <Link to="/">HOME</Link>
         <Link to="/about">ABOUT</Link>
