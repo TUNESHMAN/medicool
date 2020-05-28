@@ -6,11 +6,11 @@ import syrup from "../images/syrup.jpg";
 import antibiotics from "../images/antibiotics.jpg";
 import solution from "../images/solution.jpg";
 import antiseptics from "../images/antiseptics.jpg";
-import reminder from "../images/reminder.jpg";
+import wash from "../images/wash.png";
 import Injections from "../images/Injections.jpg";
 import Firstaid from "../images/Firstaid.jpg";
-import Disinfectant from "../images/Disinfectant.jpg";
-import tracker from "../images/tracker.jpg";
+import disinfect from "../images/disinfect.jpg";
+import watch from "../images/watch.jpg";
 import { NavLink } from "react-router-dom";
 function Home() {
   // const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/tuneshman/upload";
@@ -48,7 +48,7 @@ function Home() {
 
       <section className="second-section">
         <div className="about-section">
-          <img className="about-section3" src={tracker} alt="app-description" />
+          <img className="about-section3" src={watch} alt="app-description" />
           <p className="para">
             Everyone can make use of the MediCool app. If there are drugs for
             you to take, the MediCool app is a great way to keep track of your
@@ -73,7 +73,7 @@ function Home() {
 
       <section className="third-section">
         <div className="about-section">
-          <img className="about-section2" src={reminder} alt="" />
+          <img className="about-section2" src={wash} alt="" />
         </div>
         <div className="right-section">
           <h2>BE REMINDED OF YOUR MEDICAL PLAN</h2>
@@ -105,7 +105,7 @@ function Home() {
         </div>
 
         <div className="tools">
-          <img className="profile-img" src={Disinfectant} alt="disinfectant" />
+          <img className="profile-img" src={disinfect} alt="disinfectant" />
           <p className="txt2">Disinfectant</p>
         </div>
 

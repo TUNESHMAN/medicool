@@ -3,7 +3,6 @@ import { Form, Icon, Input, Button, InputNumber, message, Spin } from "antd";
 import "./form.css";
 import axios from "axios";
 import { NavLink } from "react-router-dom";
-import registerBackground from "../images/registerbackground.jpg";
 
 const RegisterForm = (props) => {
   const [formAge, setFormAge] = useState("");

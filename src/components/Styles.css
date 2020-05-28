@@ -50,9 +50,15 @@ nav a:hover {
   background: brown;
 }
 
+
 .logo {
-  height: 85px;
-  width: 150px;
+  width: 150px; 
+  color: whitesmoke;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  border: 6px solid orangered;
+  font-size: 27px;
+  margin-left: 20px;
+  margin-top: 10px;
 }
 
 /* Home styling */
@@ -96,7 +102,8 @@ nav a:hover {
   font-weight: bolder;
   font-size: 50px;
   color: rgb(165, 61, 42);
-  font-family: "Manrope", sans-serif;
+  /* font-family: "Manrope", sans-serif; */
+  font-family: "Roboto Slab", serif;
 }
 
 .second-section {
@@ -349,7 +356,8 @@ footer {
   background: burlywood;
   text-align: center;
   margin-right: 15px;
-  font-family: sans-serif;
+  /* font-family: sans-serif; */
+  font-family: "Roboto Slab", serif;
 }
 
 .start-btn2 {
@@ -362,7 +370,8 @@ footer {
   display: inline-block;
   background: burlywood;
   text-align: center;
-  font-family: sans-serif;
+  /* font-family: sans-serif; */
+  font-family: "Roboto Slab", serif;
 }
 
 .sub-section {

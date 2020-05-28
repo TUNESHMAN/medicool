@@ -4,7 +4,6 @@ import { Form, Icon, Input, Button, message, Spin } from "antd";
 import "./form.css";
 import axios from "axios";
 import { NavLink } from "react-router-dom";
-import loginBackground from "../images/loginbackground.jpg";
 
 const LoginForm = (props) => {
   const [loading, setLoading] = useState(false);
