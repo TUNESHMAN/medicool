@@ -49,3 +49,9 @@
   font-family: "Source Sans Pro", sans-serif;
   font-family: "Raleway", sans-serif;
 }
+
+@media (max-width: 500px) {
+  .form-div {
+    padding-top: 220px;
+  }
+}
