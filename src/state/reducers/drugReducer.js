@@ -1,44 +1,59 @@
 import {
   CREATE_PRESCRIPTION,
-  UPDATE_PRESCRIPTION,
-  DELETE_PRESCRIPTION,
   INPUT_CHANGE,
-  GET_PRESCRIPTION
+  GET_PRESCRIPTION,
+  GET_PRESCRIPTION_BY_ID,
+  FETCH_PRESCRIPTION_START,
+  FETCH_PRESCRIPTION_FAIL,
+  DELETE_PRESCRIPTION,
 } from "../types/types";
-import { axiosWithAuth } from "../../utils/axiosWithAuth";
+
 const initialState = {
+  isFetching: false,
+  error: "",
   drugs: [],
-  data: {},
-  prescriptionForm: {
-    drug: "",
-    unit: "",
-    start_date: "",
-    end_date: ""
-  }
 };
 
 const drugReducer = (state = initialState, action) => {
   switch (action.type) {
+    case GET_PRESCRIPTION_BY_ID:
+      return action.payload;
+
     case INPUT_CHANGE:
       return {
         ...state,
         prescriptionForm: {
           ...state.prescriptionForm,
-          [action.payload.name]: action.payload.value
-        }
+          [action.payload.name]: action.payload.value,
+        },
+      };
+
+    case FETCH_PRESCRIPTION_START:
+      return {
+        ...state,
+        isFetching: true,
+      };
+    case FETCH_PRESCRIPTION_FAIL:
+      return {
+        ...state,
+        isFetching: false,
       };
     case GET_PRESCRIPTION:
-      console.log(`reducer`);
-       return {
+      return {
         ...state,
-        drugs: action.payload
+        isFetching: false,
+        drugs: action.payload,
+      };
+    case DELETE_PRESCRIPTION:
+      return {
+        ...state,
+        drugs: state.drugs.filter((pres) => pres._id !== action.payload),
       };
     case CREATE_PRESCRIPTION:
-      return{
+      return {
         ...state,
-        data: action.payload
-
-      }
+        drugs: [action.payload, ...state.drugs]
+      };
     default:
       return state;
   }

@@ -1,33 +1,35 @@
 import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import styles from "./Toolbar.module.css";
-import Newlogo from "../../images/Newlogo.png";
-// import decode from "jwt-decode";
+import WrappedNormalLoginForm from "../AddPrescription";
 
 import { Layout, Menu, Icon, Button, Modal } from "antd";
-import { AddPrescription } from "../AddPrescription";
 
 const { Sider, Content } = Layout;
 
-const Toolbar = props => {
+const Toolbar = (props) => {
   const [state, setState] = useState({
-    collapsed: false
+    collapsed: false,
   });
-
-  const token = localStorage.getItem("token");
-
-  //   if (token !== null) {
-  //     const decoded = decode(token);
-  //     var userName = decoded.name;
-  //   }
-  
-
- 
 
   const toggle = () => {
     setState({
-      collapsed: !state.collapsed
+      collapsed: !state.collapsed,
     });
+  };
+
+  const [visible, setVisible] = useState(false);
+
+  const toggleModal = () => {
+    setVisible(!visible);
+  };
+
+  const handleOk = () => {
+    setVisible(false);
+  };
+
+  const handleCancel = () => {
+    setVisible(false);
   };
 
   function logout() {
@@ -57,45 +59,25 @@ const Toolbar = props => {
                   : styles.logoAndCollapse
               }
             >
-              <Link to="/">
-                <img
-                  src={Newlogo}
-                  alt="logo"
-                  className={
-                    state.collapsed ? styles.logoCollapsed : styles.logo
-                  }
-                  data-testid="logo"
-                />
-              </Link>
               <Icon
                 className="trigger"
                 type={state.collapsed ? "menu-unfold" : "menu-fold"}
                 onClick={toggle}
                 style={{ fontSize: "24px" }}
-                data-testid="toggle-icon"
               />
             </div>
-            <h3
-              className={styles.greeting}
-              style={state.collapsed ? { display: "none" } : null}
-              data-testid="greeting"
-            >
-              {/* Welcome, {userName}! */}
-            </h3>
 
             <Menu
               className={state.collapsed ? styles.menuCollapsed : styles.menu}
               theme="light"
               mode="inline"
-              // defaultSelectedKeys="1"
-              data-testid="menu"
+              defaultSelectedKeys="1"
             >
               <Menu.Item key="1" className={styles.menuItem}>
                 <NavLink
                   to="/"
                   activeClassName={styles.navItemSeleted}
                   className={styles.navItem}
-                  exact
                 >
                   <Icon type="home" />
                   <span>Home</span>
@@ -111,27 +93,31 @@ const Toolbar = props => {
                   <span>Prescriptions</span>
                 </NavLink>
               </Menu.Item>
-              <Menu.Item key="3" className={styles.menuItem}>
-                {/* <NavLink
-                  to="/addprescription"
-                  activeClassName={styles.navItemSeleted}
-                  className={styles.navItem}
-                > */}
-                  <Icon type="plus" />
-                {/* </NavLink> */}
+
+              <Menu.Item key="3" className={styles.menuItem} onClick={toggleModal}>
+                <Icon type="plus"/>
+                <span>Prescriptions</span>
               </Menu.Item>
+              <Modal
+                title="Add a prescription"
+                visible={visible}
+                onOk={handleOk}
+                onCancel={handleCancel}
+                destroyOnClose={true}
+                footer={null}
+              >
+                <WrappedNormalLoginForm toggleModal={toggleModal} />
+              </Modal>
             </Menu>
             <footer
               className={styles.footer}
               style={state.collapsed ? { display: "none" } : null}
-              data-testid="footer"
             >
               <Link to="/login">
                 <Button
                   onClick={() => logout()}
                   type="primary"
                   className={styles.logoutButton}
-                  data-testid="logout-button"
                 >
                   Logout
                 </Button>

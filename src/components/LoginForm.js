@@ -1,165 +1,147 @@
-// import React, { useState } from "react";
-// import axios from "axios";
-// import { Button, Form, FormGroup, Label, Input } from "reactstrap";
-// import "./form.css";
-
-// function LoginForm(props) {
-//   const [credentials, setCredentials] = useState({
-//     email: "",
-//     password: ""
-//   });
-
-//   const handleChange = e => {
-//     setCredentials({
-//       ...credentials,
-//       [e.target.name]: e.target.value
-//     });
-//   };
-
-//   const handleSubmit = e => {
-//     e.preventDefault();
-
-//     // Make a post request to the Login endpoint
-//     axios
-//       .post(
-//         `https://drug-prescription-app.herokuapp.com/api/v1/users/login`,
-//         credentials
-//       )
-//       .then(res => {
-//         console.log(res);
-//         localStorage.setItem(`token`, res.data.user.token);
-//         props.history.push(`/prescription`);
-//       })
-//       .catch(err => {
-//         console.log(err);
-//       });
-//   };
-//   return (
-//     <div>
-//       <Form className="login-form" onSubmit={handleSubmit}>
-//         <h1>
-//           <span className="font-weight-bold">Login</span>
-//         </h1>
-//         <FormGroup>
-//           <Label>Email</Label>
-//           <Input
-//             type="email"
-//             placeholder="Email"
-//             name="email"
-//             onChange={handleChange}
-//           />
-//         </FormGroup>
-//         <FormGroup>
-//           <Label>Password</Label>
-//           <Input
-//             type="password"
-//             placeholder="Password"
-//             name="password"
-//             onChange={handleChange}
-//           />
-//         </FormGroup>
-//         <Button type="submit" className="btn-lg btn-block" color="primary">
-//           Log in
-//         </Button>
-//         <div className="text-center pt3 p-2">
-//           Don't have an account? <a href="#">Sign up</a>
-//         </div>
-//       </Form>
-//     </div>
-//   );
-// }
-
-// export default LoginForm;
-
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "antd/dist/antd.css";
-import { Form, Icon, Input, Button } from "antd";
+import { Form, Icon, Input, Button, message, Spin } from "antd";
 import "./form.css";
 import axios from "axios";
+import { NavLink } from "react-router-dom";
+import Navbar from "./Navbar";
 
-const LoginForm = props => {
-  const [formValues, setFormValues] = useState({
-    email: "",
-    password: ""
-  });
-  const handleChange = e => {
-    setFormValues({
-      ...formValues,
-      [e.target.name]: e.target.value
+const LoginForm = (props) => {
+  const [loading, setLoading] = useState(false);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setLoading(true);
+    props.form.validateFieldsAndScroll((error, values) => {
+      const loginPayload = {
+        email: values.email,
+        password: values.password,
+      };
+      if (!error) {
+        message.loading(`You are logging in...`, 1.5);
+        axios
+          .post(
+            "https://drug-prescription-app.herokuapp.com/api/v1/users/login",
+            loginPayload
+          )
+          .then((res) => {
+            message.success(`Successful login attempt`, 1.5);
+            setLoading(false);
+            localStorage.setItem("token", res.data.user.token);
+            props.history.push("/prescription");
+          })
+          .catch((err) => {
+            setLoading(false);
+            message.error(
+              `Unsuccessful attempt, Please create an account or try again`,
+              2.0
+            );
+          });
+      }
     });
   };
-  const handleSubmit = e => {
-    e.preventDefault();
-    axios
-      .post(
-        "https://drug-prescription-app.herokuapp.com/api/v1/users/login",
-        formValues
-      )
-      .then(res => {
-        console.log(res);
-        localStorage.setItem("token", res.data.user.token);
-        setFormValues({
-          email: "",
-          password: ""
-        });
-        props.history.push("/prescription");
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
-  const { getFieldDecorator } = props.form;
+  const {
+    getFieldDecorator,
+    getFieldsError,
+    getFieldError,
+    isFieldTouched,
+    validateFields,
+  } = props.form;
+
+  useEffect(() => {
+    validateFields();
+  }, [validateFields]);
+
+  function hasErrors(fieldsError) {
+    return Object.keys(fieldsError).some((field) => fieldsError[field]);
+  }
+
+  // Only show error after a field is touched.
+  const emailError = isFieldTouched("email") && getFieldError("email");
+  const passwordError = isFieldTouched("password") && getFieldError("password");
   return (
-    <Form onSubmit={handleSubmit} className="login-form">
-      <Form.Item>
-        {getFieldDecorator("email", {
-          //rules are for the form validation
-          rules: [
-            { required: true, message: "Please input a email!" },
-            {
-              type: "email",
-              message: "Invalid email"
-            }
-          ]
-        })(
-          <Input
-            name="email"
-            setFieldsValue={formValues.email}
-            onChange={handleChange}
-            //form icon in the email field, change type for different icons, see antdesign docs
-            prefix={<Icon type="mail" style={{ color: "rgba(0,0,0,.25)" }} />}
-            placeholder="Email"
-          />
-        )}
-      </Form.Item>
-      <Form.Item>
-        {getFieldDecorator("password", {
-          //rules are for the form validation
-          rules: [
-            { required: true, message: "Please input a password!" },
-            {
-              type: "string",
-              message: "Invalid password"
-            }
-          ]
-        })(
-          <Input
-            name="password"
-            type="password"
-            setFieldsValue={formValues.password}
-            onChange={handleChange}
-            //form icon in the email field, change type for different icons, see antdesign docs
-            prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
-            placeholder="Password"
-          />
-        )}
-      </Form.Item>
-      <Form.Item>
-        <Button type="primary" htmlType="submit" className="login-form-button">
-          Login
-        </Button>
-      </Form.Item>
-    </Form>
+    <div className="form-container">
+      <Navbar/>
+      {/* <div
+        className="form-component"
+        style={{
+          backgroundImage: `url(${loginBackground})`,
+        }}
+      ></div> */}
+      <div className="form-div">
+        <Spin spinning={loading}>
+          <h1 className="register-header">Sign-in</h1>
+          <Form onSubmit={handleSubmit} className="login-form">
+            <Form.Item
+              name="email"
+              validateStatus={emailError ? "error" : ""}
+              hasFeedback
+              help={emailError || ""}
+            >
+              {getFieldDecorator("email", {
+                //rules are for the form validation
+                rules: [
+                  { required: true, message: "Please input a email!" },
+                  {
+                    type: "email",
+                    message: "Invalid email",
+                  },
+                ],
+              })(
+                <Input
+                  name="email"
+                  //form icon in the email field, change type for different icons, see antdesign docs
+                  prefix={
+                    <Icon type="mail" style={{ color: "rgba(0,0,0,.25)" }} />
+                  }
+                  placeholder="Email"
+                />
+              )}
+            </Form.Item>
+            <Form.Item
+              name="password"
+              validateStatus={passwordError ? "error" : ""}
+              hasFeedback
+              help={passwordError || ""}
+            >
+              {getFieldDecorator("password", {
+                //rules are for the form validation
+                rules: [
+                  { required: true, message: "Please input a password!" },
+                  {
+                    type: "string",
+                    message: "Invalid password",
+                  },
+                ],
+              })(
+                <Input
+                  name="password"
+                  type="password"
+                  //form icon in the email field, change type for different icons, see antdesign docs
+                  prefix={
+                    <Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />
+                  }
+                  placeholder="Password"
+                />
+              )}
+            </Form.Item>
+            <Form.Item>
+              <Button
+                type="primary"
+                htmlType="submit"
+                className="login-form-button"
+                disabled={hasErrors(getFieldsError())}
+              >
+                Login
+              </Button>
+              <span className="auth-text">Don't have an account?</span>
+              <NavLink to="/register">
+                <span className="auth-text2"> Sign-up here!</span>
+              </NavLink>
+            </Form.Item>
+          </Form>
+        </Spin>
+      </div>
+    </div>
   );
 };
 const WrappedNormalLoginForm = Form.create({ name: "normal_login" })(LoginForm);

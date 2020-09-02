@@ -1,19 +1,18 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
+import 'antd/dist/antd.css';
 import App from "./App";
 import store from "./state/store";
 import * as serviceWorker from "./serviceWorker";
-import { BrowserRouter as Route } from "react-router-dom";
 import { Provider } from "react-redux";
 
 ReactDOM.render(
   <Provider store={store}>
-    <Route>
-      <App />
-    </Route>
+    <App />
   </Provider>,
+
   document.getElementById("root")
 );
 
